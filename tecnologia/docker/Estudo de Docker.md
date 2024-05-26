@@ -54,3 +54,8 @@ Adicione um pipeline CI/CD na aplicação da fase 3 utilizando serviços como Gi
 
 ## Projeto
 Faça deploy da aplicação da fase 3 utilizando um cluster local de kubernetes com [Minikube](https://kubernetes.io/pt-br/docs/tutorials/hello-minikube/) ou algo semelhante
+# Fase 7: Monitoramento
+
+* Como [coletar métricas](https://prometheus.io/docs/introduction/overview/) sobre a performance, uso de recursos e outros aspectos importantes da aplicação?
+* Como [capturar logs ](https://www.elastic.co/pt/elastic-stack/) como mensagens de erro, avisos e mensagens de informação?
+* Como lidar com tracing? 
