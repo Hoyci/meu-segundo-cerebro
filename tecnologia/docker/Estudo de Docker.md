@@ -40,5 +40,17 @@ Construa um docker compose contendo multiplos serviços interconectados (front, 
 Adicione o conhecimento dessa fase na aplicação da fase 3.
 
 # Fase 5: CI/CD com Docker
-* O que é continuos delivering?
-*  O que é continuous integration? 
+* O que é [continuos delivering](https://docs.docker.com/ci-cd/)?
+*  O que é [continuous integration](https://docs.docker.com/ci-cd/)? 
+
+## Projeto
+
+Adicione um pipeline CI/CD na aplicação da fase 3 utilizando serviços como Github Actions para buildar, testar e deployar os containers docker.
+
+# Fase 6: Introdução a Kubernetes
+
+* O que é kubernetes? Qual a sua arquitetura? Quais são seus principais conceitos (pods, service, deployment) e para o que servem?
+* Como fazer deploy de aplicações dockerizadas no kubernetes?
+
+## Projeto
+Faça deploy da aplicação da fase 3 utilizando um cluster local de kubernetes com [Minikube](https://kubernetes.io/pt-br/docs/tutorials/hello-minikube/) ou algo semelhante
