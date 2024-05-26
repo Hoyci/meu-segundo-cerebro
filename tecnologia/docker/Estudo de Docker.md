@@ -19,3 +19,12 @@ Criar um arquivo docker compose para uma aplicação multi-container (backend e 
 
 # Fase 3: Docker compose e orquestração
 
+* O que é [docker compose](https://docs.docker.com/compose/)? qual a sintaxe de um arquivo docker compose? Como definir serviços, networks e volumes?
+* O que é [docker swarm](https://docs.docker.com/engine/swarm/)? Como configurar um swarm cluster? Como fazer deploy de serviços? Como escalar aplicações? Como gerenciar stacks?
+
+## Projeto
+Construa um docker compose contendo multiplos serviços interconectados (front, back e banco de dados)
+
+
+# Fase 4: Segurança com Docker
+
