@@ -28,3 +28,17 @@ Construa um docker compose contendo multiplos serviços interconectados (front, 
 
 # Fase 4: Segurança com Docker
 
+* Quais são as boas práticas de segurança para containers? 
+* Rodando como usuário não-root
+* Como gerenciar secrets?
+* Como verificar vulnerabilidades de uma imagem? 
+* O que é signing images?
+* O que é docker content trust?
+
+## Projeto
+
+Adicione o conhecimento dessa fase na aplicação da fase 3.
+
+# Fase 5: CI/CD com Docker
+* O que é continuos delivering?
+*  O que é continuous integration? 
