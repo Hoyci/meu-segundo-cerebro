@@ -2,7 +2,7 @@
 
 * O que é docker? O que é um container? O que é uma imagem?
 * Arquitetura de docker: O que é docker engine? O que é Docker hub? O que é docker CLI? O que é docker compose?
-* Comandos básicos de docker e o que fazem?: `docker run`, `docker build`, `docker pull`, `docker push`, `docker-compose up
+* Comandos básicos de docker e o que fazem?: `docker run`, `docker build`, `docker pull`, `docker push`, `docker-compose up`
 * Entender a estrutra e as instruções usada em um dockerfile
 ## Projeto
 
@@ -58,4 +58,6 @@ Faça deploy da aplicação da fase 3 utilizando um cluster local de kubernetes 
 
 * Como [coletar métricas](https://prometheus.io/docs/introduction/overview/) sobre a performance, uso de recursos e outros aspectos importantes da aplicação?
 * Como [capturar logs ](https://www.elastic.co/pt/elastic-stack/) como mensagens de erro, avisos e mensagens de informação?
-* Como lidar com tracing? 
+* O que é tracing? como adicionar Jaeger para aplicações? O que é [Jaeger](https://www.jaegertracing.io/)?
+* O que é [alerting](https://prometheus.io/docs/alerting/latest/alertmanager/)? 
+* O que é [Grafana](https://grafana.com/docs/grafana/latest/dashboards/)?
