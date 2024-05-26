@@ -1,1 +1,0 @@
-Aqui eu vou colocar uma estrutura que irei seguir para estudar Docker na próxima semana
