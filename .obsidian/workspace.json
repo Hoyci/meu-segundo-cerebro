@@ -4,59 +4,22 @@
     "type": "split",
     "children": [
       {
-        "id": "98a9d5347c1366eb",
+        "id": "b8bd97eb21eb05fe",
         "type": "tabs",
         "children": [
           {
-            "id": "9266a173163ea844",
+            "id": "a607d65d5c20267a",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tecnologia/docker/Devops.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "9850fbd043930a83",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "tecnologia/docker/docker.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "c234b34e84a1958a",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "tecnologia/docker/container.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "f2f6011f452a35be",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "tecnologia/docker/imagem.md",
+                "file": "tecnologia/docker/arquitetura de docker.md",
                 "mode": "source",
                 "source": false
               }
             }
           }
-        ],
-        "currentTab": 2
+        ]
       }
     ],
     "direction": "vertical"
@@ -122,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tecnologia/docker/container.md",
+                "file": "tecnologia/docker/arquitetura de docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -139,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tecnologia/docker/container.md",
+                "file": "tecnologia/docker/arquitetura de docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -162,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tecnologia/docker/container.md"
+                "file": "tecnologia/docker/arquitetura de docker.md"
               }
             }
           }
@@ -183,12 +146,13 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "c234b34e84a1958a",
+  "active": "a607d65d5c20267a",
   "lastOpenFiles": [
+    "tecnologia/docker/Devops.md",
+    "tecnologia/docker/arquitetura de docker.md",
     "tecnologia/docker/docker.md",
     "tecnologia/docker/container.md",
     "tecnologia/docker/imagem.md",
-    "tecnologia/docker/Devops.md",
     "Sem título.canvas",
     "2024-05-26.md",
     "tecnologia/docker",
