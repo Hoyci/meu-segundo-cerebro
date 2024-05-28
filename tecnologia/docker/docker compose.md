@@ -1,1 +1,1 @@
-Docker compose é uma ferramenta para definir e rodar aplicações multi-containers. 
+Docker compose é uma ferramenta para definir e rodar aplicações multi-containers juntas em um ambiente isolado. Esse arquivo pode ser usado para rodar todos os serviços necessários da aplicação (como: banco de dados, fila de mensagens, etc). Dessa maneira, com um simples comando pode-se criar e iniciar todo os serviços a partir do arquivo de configuração

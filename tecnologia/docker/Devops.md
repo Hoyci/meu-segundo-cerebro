@@ -6,7 +6,7 @@
 * Entender a estrutra e as instruções usada em um dockerfile
 ## Projeto
 
-Criar um dockefile para uma simples aplicação web utilizando NGINX.  Build, rode e envie a imagem para o docker hub.
+Criar um dockefile para uma simples aplicação web utilizando [[NGINX]].  Build, rode e envie a imagem para o docker hub.
 
 # Fase 2: Networking e Volumes 
 
