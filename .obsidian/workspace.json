@@ -140,6 +140,7 @@
   },
   "active": "6bba5db0b2cf7fd8",
   "lastOpenFiles": [
+    "tecnologia/docker/nginx.md",
     "tecnologia/docker/devops.md",
     "tecnologia/docker/docker.md",
     "tecnologia/docker/docker CLI.md",
@@ -148,7 +149,6 @@
     "tecnologia/docker/imagem.md",
     "tecnologia/docker/container.md",
     "Dockerfile.md",
-    "tecnologia/docker/nginx.md",
     "`docker run`.md",
     "tecnologia/docker/docker engine.md",
     "tecnologia/docker/arquitetura de docker.md",
