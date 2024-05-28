@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tecnologia/docker/devops.md",
+                "file": "tecnologia/docker/nginx.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tecnologia/docker/devops.md",
+                "file": "tecnologia/docker/nginx.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tecnologia/docker/devops.md",
+                "file": "tecnologia/docker/nginx.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tecnologia/docker/devops.md"
+                "file": "tecnologia/docker/nginx.md"
               }
             }
           }
@@ -148,8 +148,8 @@
   },
   "active": "4b37aead27529e9f",
   "lastOpenFiles": [
-    "tecnologia/docker/nginx.md",
     "tecnologia/docker/devops.md",
+    "tecnologia/docker/nginx.md",
     "tecnologia/docker/docker.md",
     "tecnologia/docker/docker compose.md",
     "tecnologia/docker/container.md",
