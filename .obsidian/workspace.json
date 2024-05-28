@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "e3afe2b012c2be45",
+        "id": "4384e78ab918c2b4",
         "type": "tabs",
         "children": [
           {
-            "id": "4b37aead27529e9f",
+            "id": "6bba5db0b2cf7fd8",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tecnologia/docker/nginx.md",
+                "file": "tecnologia/docker/devops.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tecnologia/docker/nginx.md",
+                "file": "tecnologia/docker/devops.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tecnologia/docker/nginx.md",
+                "file": "tecnologia/docker/devops.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tecnologia/docker/nginx.md"
+                "file": "tecnologia/docker/devops.md"
               }
             }
           }
@@ -146,16 +146,17 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "4b37aead27529e9f",
+  "active": "6bba5db0b2cf7fd8",
   "lastOpenFiles": [
-    "tecnologia/docker/devops.md",
-    "tecnologia/docker/nginx.md",
     "tecnologia/docker/docker.md",
-    "tecnologia/docker/docker compose.md",
-    "tecnologia/docker/container.md",
     "tecnologia/docker/docker CLI.md",
+    "tecnologia/docker/docker compose.md",
     "tecnologia/docker/docker hub.md",
     "tecnologia/docker/imagem.md",
+    "tecnologia/docker/container.md",
+    "tecnologia/docker/devops.md",
+    "Dockerfile.md",
+    "tecnologia/docker/nginx.md",
     "`docker run`.md",
     "tecnologia/docker/docker engine.md",
     "tecnologia/docker/arquitetura de docker.md",
