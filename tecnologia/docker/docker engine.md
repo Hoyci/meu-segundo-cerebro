@@ -1,0 +1,1 @@
+Docker engine é um conjunto de componentes que permitem construir, rodar e gerenciar containers Docker. É a parte que faz com que todas as partes trabalhem juntas.
