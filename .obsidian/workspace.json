@@ -18,8 +18,17 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "99c937c01e098971",
+            "type": "leaf",
+            "state": {
+              "type": "graph",
+              "state": {}
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +94,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tecnologia/docker/Devops.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +110,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tecnologia/docker/Devops.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +131,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "tecnologia/docker/Devops.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -146,10 +151,10 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "fd1ebd7b99baaf32",
+  "active": "99c937c01e098971",
   "lastOpenFiles": [
-    "container.md",
     "tecnologia/docker/Devops.md",
+    "tecnologia/docker/container.md",
     "Sem título.canvas",
     "2024-05-26.md",
     "tecnologia/docker",
