@@ -11,12 +11,8 @@
             "id": "4b37aead27529e9f",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "tecnologia/docker/devops.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "graph",
+              "state": {}
             }
           }
         ]
@@ -85,7 +81,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tecnologia/docker/devops.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +97,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tecnologia/docker/devops.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -124,9 +118,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "tecnologia/docker/devops.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -149,12 +141,12 @@
   "active": "4b37aead27529e9f",
   "lastOpenFiles": [
     "tecnologia/docker/docker CLI.md",
-    "`docker run`.md",
-    "tecnologia/docker/devops.md",
+    "tecnologia/docker/docker hub.md",
     "tecnologia/docker/imagem.md",
     "tecnologia/docker/docker compose.md",
+    "tecnologia/docker/devops.md",
+    "`docker run`.md",
     "tecnologia/docker/docker.md",
-    "tecnologia/docker/docker hub.md",
     "tecnologia/docker/docker engine.md",
     "tecnologia/docker/arquitetura de docker.md",
     "tecnologia/docker/container.md",
