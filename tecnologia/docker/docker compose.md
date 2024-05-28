@@ -1,0 +1,1 @@
+Docker compose é uma ferramenta para definir e rodar aplicações multi-containers. 

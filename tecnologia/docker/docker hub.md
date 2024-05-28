@@ -1,0 +1,1 @@
+Docker hub é onde as imagens docker são registradas. é um "marketplace" que permite que usuários possam pegar imagens e usar para criar imagens customizadas e containers.

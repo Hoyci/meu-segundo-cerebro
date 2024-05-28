@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "b8bd97eb21eb05fe",
+        "id": "e3afe2b012c2be45",
         "type": "tabs",
         "children": [
           {
-            "id": "a607d65d5c20267a",
+            "id": "4b37aead27529e9f",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Docker hub.md",
+                "file": "tecnologia/docker/devops.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Docker hub.md",
+                "file": "tecnologia/docker/devops.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Docker hub.md",
+                "file": "tecnologia/docker/devops.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "Docker hub.md"
+                "file": "tecnologia/docker/devops.md"
               }
             }
           }
@@ -146,15 +146,18 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "a607d65d5c20267a",
+  "active": "4b37aead27529e9f",
   "lastOpenFiles": [
-    "tecnologia/docker/Devops.md",
-    "Docker hub.md",
-    "tecnologia/docker/docker engine.md",
+    "tecnologia/docker/docker CLI.md",
+    "`docker run`.md",
+    "tecnologia/docker/devops.md",
+    "tecnologia/docker/imagem.md",
+    "tecnologia/docker/docker compose.md",
     "tecnologia/docker/docker.md",
+    "tecnologia/docker/docker hub.md",
+    "tecnologia/docker/docker engine.md",
     "tecnologia/docker/arquitetura de docker.md",
     "tecnologia/docker/container.md",
-    "tecnologia/docker/imagem.md",
     "Sem título.canvas",
     "2024-05-26.md",
     "tecnologia/docker",
