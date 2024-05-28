@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tecnologia/docker/docker.md",
+                "file": "tecnologia/docker/Devops.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tecnologia/docker/docker.md",
+                "file": "tecnologia/docker/Devops.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tecnologia/docker/docker.md",
+                "file": "tecnologia/docker/Devops.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tecnologia/docker/docker.md"
+                "file": "tecnologia/docker/Devops.md"
               }
             }
           }
@@ -149,7 +149,7 @@
   "active": "fd1ebd7b99baaf32",
   "lastOpenFiles": [
     "container.md",
-    "tecnologia/docker/docker.md",
+    "tecnologia/docker/Devops.md",
     "Sem título.canvas",
     "2024-05-26.md",
     "tecnologia/docker",
