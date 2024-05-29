@@ -2,7 +2,7 @@ Host network é uma configuração que permite que um container compartilhe a pi
 
 Deve ser usando quando deseja-se ter:
 * **Desempenho de rede**: quando você precisa de um desempenho de rede superior, evitando a sobrecarga de virtualização de rede.
-* **Acesso direto a serviços do host**: quando o container preciss acessar serviços locais no host diretamente sem passar pelo NAT (network address translation)
+* **Acesso direto a serviços do host**: quando o container precisa acessar serviços locais no host diretamente sem passar pelo NAT (network address translation)
 * **Configurações simples de rede**: quando você quer simplificar a configuração de rede, evitando a necessidade de expor e mapear portas entre o host e o container.
 
 ## Como funciona?
