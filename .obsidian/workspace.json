@@ -20,31 +20,13 @@
             }
           },
           {
-            "id": "a7f45ee125b89bf3",
+            "id": "63cc7fad048a1913",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tecnologia/docker/host network.md",
-                "mode": "preview",
-                "source": false
-              }
-            }
-          }
-        ]
-      },
-      {
-        "id": "048848b41842c122",
-        "type": "tabs",
-        "children": [
-          {
-            "id": "2c2d74b3a6983016",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "tecnologia/docker/host network.md",
-                "mode": "preview",
+                "file": "tecnologia/docker/devops.md",
+                "mode": "source",
                 "source": false
               }
             }
@@ -178,10 +160,10 @@
   },
   "active": "087303e595a2aabf",
   "lastOpenFiles": [
-    "tecnologia/docker/host network.md",
-    "tecnologia/docker/bridge network.md",
-    "tecnologia/docker/docker networks.md",
     "tecnologia/docker/devops.md",
+    "tecnologia/docker/bridge network.md",
+    "tecnologia/docker/host network.md",
+    "tecnologia/docker/docker networks.md",
     "tecnologia/docker/docker.md",
     "tecnologia/docker/docker hub.md",
     "docker networks.md",

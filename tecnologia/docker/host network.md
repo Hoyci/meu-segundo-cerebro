@@ -5,8 +5,6 @@ Deve ser usando quando deseja-se ter:
 * **Acesso direto a serviços do host**: quando o container precisa acessar serviços locais no host diretamente sem passar pelo NAT (network address translation)
 * **Configurações simples de rede**: quando você quer simplificar a configuração de rede, evitando a necessidade de expor e mapear portas entre o host e o container.
 
-### Necessário levar em consideração que o driver host só funciona em sistemas operacionais baseados em linux.
-
 ## Como funciona?
 
 Para executar um container usando o driver de rede host você pode usar o comando `dokcer run -d --name my-container --network host` 
@@ -43,3 +41,7 @@ Executando o container com rede host
 
 Nesse caso, o servidor web dentro do container está usando NGINX e porta padrão desse serviço é a 80. Sendo assim, podemos acessar o servidor web usando o enderço `http://localhost:80`
 
+
+### Considerações
+
+* Necessário levar em consideração que o driver host só funciona em sistemas operacionais baseados em linux.
