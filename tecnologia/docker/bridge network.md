@@ -1,0 +1,1 @@
+Brigde network é a configuração padrão para containers docker. Quando você criar um container, ele é automaticamente coenctado a uma rede bridge, a menos que você especifique outra rede.

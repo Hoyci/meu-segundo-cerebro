@@ -9,7 +9,7 @@ Deve ser usando quando deseja-se ter:
 
 ## Como funciona?
 
-Para criar e executar um container usando o driver de rede host você pode usar o comando `dokcer run -d --name my-container --network host` 
+Para executar um container usando o driver de rede host você pode usar o comando `dokcer run -d --name my-container --network host` 
 
 ### Exemplo de uso
 

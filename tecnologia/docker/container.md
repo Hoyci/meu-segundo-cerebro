@@ -4,4 +4,4 @@ Quando você criar um container a partir de uma imagem, ele pode ser executado e
 
 Um container é isolado de outros containers e isso significa que ele tem uma única função que é rodar seu próprio software, com seus próprios binários e suas próprias configurações. Por esse motivo costumam dizer que um container é portável e que pode ser executado em qualquer ambiente.
 
-[[container networks]]
+[[docker networks]]
