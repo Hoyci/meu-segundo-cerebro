@@ -10,9 +10,10 @@ Um container consegue ver apenas informações como:
 * Serviços DNS
 
 Existem alguns tipos de drivers de rede que pode ser usado com docker:
-* [[None]]
-* Host
-* Bridge
+* [[none network]]
+* [[host network]]
+* [[bridge network]]
+* [[overlay network]]
 
 
 
