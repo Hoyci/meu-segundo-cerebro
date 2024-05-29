@@ -1,0 +1,3 @@
+None network é uma configuração que desabilita completamente a conectividade de rede do [[container]]. Isso significa que o container não terá nenhuma interface de rede configurada e não poderá se comunicar com outros containers, host ou com a internet.
+
+Host network é uma configuração que permite que um container compartilhe a pilha de rede host. Isso significa que o container não terá sua própria interface de rede isolada e sim que ele usará diretamente a rede do host, como se fosse um processo nativo rodando no host.
