@@ -5,7 +5,7 @@ Deve ser usando quando deseja-se ter:
 * **Acesso direto a serviços do host**: quando o container precisa acessar serviços locais no host diretamente sem passar pelo NAT (network address translation)
 * **Configurações simples de rede**: quando você quer simplificar a configuração de rede, evitando a necessidade de expor e mapear portas entre o host e o container.
 
-### ****
+### Necessário levar em consideração que o driver host só funciona em sistemas operacionais baseados em linux.
 
 ## Como funciona?
 
