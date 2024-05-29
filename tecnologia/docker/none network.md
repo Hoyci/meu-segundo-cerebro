@@ -1,0 +1,1 @@
+None network é uma configuração que desabilita completamente a conectividade de rede do [[container]]. Isso significa que o container não terá nenhuma interface de rede configurada e não poderá se comunicar com outros containers, 

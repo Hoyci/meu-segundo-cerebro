@@ -1,4 +1,4 @@
-Container networks refere-se a habilidade que os containers possuem de se comunicarem entre si.
+[[container]] networks refere-se a habilidade que os containers possuem de se comunicarem entre si.
 
 Containers possuem a capacidade de se conectar à internet e a outras redes por padrão. Isso significa que ele pode acessar sites, servidores, acessar uma API, baixar arquivos e outras coisas.
 
