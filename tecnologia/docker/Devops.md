@@ -10,7 +10,7 @@ Criar um dockefile para uma simples aplicação web utilizando [[nginx]].  Build
 
 # Fase 2: Networking e Volumes 
 
-* O que é [[docker networks](https://docs.docker.com/network/)? o que são [[bridges networks]]? o que são [[ host networks]]? o que são [[overlay networks]]? Como criar e gerenciar networks com docker? 
+* O que é [[docker networks]](https://docs.docker.com/network/)? o que são [[bridges networks]]? o que são [[ host networks]]? o que são [[overlay networks]]? Como criar e gerenciar networks com docker? 
 * O que são [docker volumes](https://docs.docker.com/storage/volumes/)? O que são [[bind mounts]], suas diferenças e casos de uso? Como persistir data com docker?
 
 ## Projeto
