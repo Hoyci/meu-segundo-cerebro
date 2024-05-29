@@ -13,7 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tecnologia/docker/none network.md",
+                "file": "host network.md",
                 "mode": "source",
                 "source": false
               }
@@ -85,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tecnologia/docker/none network.md",
+                "file": "host network.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tecnologia/docker/none network.md",
+                "file": "host network.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tecnologia/docker/none network.md"
+                "file": "host network.md"
               }
             }
           }
@@ -149,9 +149,10 @@
   "active": "1baca6e7992c5c41",
   "lastOpenFiles": [
     "tecnologia/docker/container networks.md",
+    "host network.md",
     "tecnologia/docker/container.md",
-    "tecnologia/docker/none network.md",
     "tecnologia/docker/devops.md",
+    "tecnologia/docker/none network.md",
     "tecnologia/docker/docker.md",
     "tecnologia/docker/docker CLI.md",
     "tecnologia/docker/imagem.md",
