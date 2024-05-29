@@ -6,4 +6,5 @@ Deve ser usando quando deseja-se ter:
 * **Testes**: Quando você está realizando testes que não necessitam de rede ou onde a rede pode interferir nos resultados.
 
 ## Como funciona?
+
 Para criar e executar um container usando o driver de rede none você pode usar o comando `dokcer run -d --name isolated-container --network none` 
