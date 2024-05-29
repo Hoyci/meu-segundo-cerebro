@@ -1,0 +1,1 @@
+Container networks refere-se a habilidade que os containers possuem de se comunicarem entre si ou com não
