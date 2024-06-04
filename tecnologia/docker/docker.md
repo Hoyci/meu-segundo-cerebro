@@ -8,17 +8,17 @@
 
 Criar um dockefile para uma simples aplicação web utilizando nginx.  Build, rode e envie a imagem para o docker hub.
 
-# Fase 2: Networking e Volumes 
+# Fase 2: Docker compose, Networking e Volumes 
 
 * O que é docker networks? o que é bridge network? o que é host network? o que é overlay networks? Como criar e gerenciar networks com docker? 
 * O que são docker volumes? O que são bind mounts, suas diferenças e casos de uso? Como persistir data com docker?
+* O que é [docker compose](https://docs.docker.com/compose/)? qual a sintaxe de um arquivo docker compose? Como definir serviços, networks e volumes?
 ## Projeto
 
 Criar um arquivo docker compose para uma aplicação multi-container (backend e banco de dados) implementando custom networking e persistência de dados entre volumes
 
-# Fase 3: Docker compose e orquestração
+# Fase 3: Orquestração
 
-* O que é [docker compose](https://docs.docker.com/compose/)? qual a sintaxe de um arquivo docker compose? Como definir serviços, networks e volumes?
 * O que é [docker swarm](https://docs.docker.com/engine/swarm/)? Como configurar um swarm cluster? Como fazer deploy de serviços? Como escalar aplicações? Como gerenciar stacks?
 
 ## Projeto
