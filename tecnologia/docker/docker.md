@@ -74,4 +74,4 @@ Deve-se usar docker porque garante:
 
 
 
-refs: [[container]] [[docker networks]] [[docker compose]] [[docker hub]] [[docker CLI]] [[nginx]] [[docker volu]]
+refs: [[container]] [[docker networks]] [[docker compose]] [[docker hub]] [[docker CLI]] [[nginx]] [[docker volumes]]
