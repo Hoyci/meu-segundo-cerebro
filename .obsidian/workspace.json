@@ -18,8 +18,21 @@
                 "source": false
               }
             }
+          },
+          {
+            "id": "00f27009b6be9a21",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "tecnologia/docker/docker compose.md",
+                "mode": "source",
+                "source": false
+              }
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -85,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tecnologia/docker/docker.md",
+                "file": "tecnologia/docker/docker compose.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -102,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tecnologia/docker/docker.md",
+                "file": "tecnologia/docker/docker compose.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -125,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tecnologia/docker/docker.md"
+                "file": "tecnologia/docker/docker compose.md"
               }
             }
           }
@@ -146,11 +159,11 @@
       "command-palette:Abrir paleta de comandos": false
     }
   },
-  "active": "087303e595a2aabf",
+  "active": "00f27009b6be9a21",
   "lastOpenFiles": [
+    "tecnologia/docker/docker.md",
     "tecnologia/docker/docker volumes.md",
     "tecnologia/docker/docker CLI.md",
-    "tecnologia/docker/docker.md",
     "tecnologia/docker/devops.md",
     "tecnologia/docker/nginx.md",
     "tecnologia/docker/bridge network.md",
