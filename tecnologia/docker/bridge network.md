@@ -26,5 +26,5 @@ A rede bridge é uma rede internado no host docker que permite que os containers
 
 ### Considerações
 
-* Para aplicações que precisam escalar para múltiplos hosts, uma [[overlay network]] pode ser mais apropriada
+* Para aplicações que precisam escalar para múltiplos hosts, uma overlay network pode ser mais apropriada
 * É importante garantir que as portas necessárias não estejam em uso por outros serviços no host

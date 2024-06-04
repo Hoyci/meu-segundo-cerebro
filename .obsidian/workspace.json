@@ -11,8 +11,12 @@
             "id": "087303e595a2aabf",
             "type": "leaf",
             "state": {
-              "type": "graph",
-              "state": {}
+              "type": "markdown",
+              "state": {
+                "file": "tecnologia/docker/docker.md",
+                "mode": "source",
+                "source": false
+              }
             }
           }
         ]
@@ -81,6 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
+                "file": "tecnologia/docker/docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -97,6 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
+                "file": "tecnologia/docker/docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -118,7 +124,9 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {}
+              "state": {
+                "file": "tecnologia/docker/docker.md"
+              }
             }
           }
         ]
@@ -140,19 +148,19 @@
   },
   "active": "087303e595a2aabf",
   "lastOpenFiles": [
-    "tecnologia/docker/docker networks.md",
+    "tecnologia/docker/devops.md",
     "tecnologia/docker/docker.md",
+    "tecnologia/docker/nginx.md",
+    "tecnologia/docker/bridge network.md",
+    "tecnologia/docker/docker networks.md",
     "tecnologia/docker/docker compose.md",
     "tecnologia/docker/none network.md",
     "tecnologia/docker/container.md",
-    "tecnologia/docker/devops.md",
     "tecnologia/docker/Sem título.md",
     "tecnologia/docker/host network.md",
-    "tecnologia/docker/bridge network.md",
     "tecnologia/docker/docker hub.md",
     "docker networks.md",
     "tecnologia/docker/imagem.md",
-    "tecnologia/docker/nginx.md",
     "tecnologia/docker/docker CLI.md",
     "Dockerfile.md",
     "`docker run`.md",

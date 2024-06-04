@@ -11,7 +11,7 @@ Criar um dockefile para uma simples aplicação web utilizando nginx.  Build, ro
 # Fase 2: Networking e Volumes 
 
 * O que é docker networks? o que é bridge network? o que é host network? o que é overlay networks? Como criar e gerenciar networks com docker? 
-* O que são [docker volumes](https://docs.docker.com/storage/volumes/)? O que são bind mounts, suas diferenças e casos de uso? Como persistir data com docker?
+* O que são docker volumes? O que são bind mounts, suas diferenças e casos de uso? Como persistir data com docker?
 
 ## Projeto
 
@@ -74,4 +74,4 @@ Deve-se usar docker porque garante:
 
 
 
-refs: [[container]] [[docker networks]] [[docker compose]]
+refs: [[container]] [[docker networks]] [[docker compose]] [[docker hub]] [[docker CLI]] [[nginx]] [[docker volu]]
