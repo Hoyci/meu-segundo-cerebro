@@ -14,5 +14,15 @@ docker volume create meu-volume
 
 Usar o volume em um container:
 ```bash
-docker run -d --name meu-container -v meu
+docker run -d --name meu-container -v meu-volume:/app nginx
+```
+
+Verificar os volumes: 
+```bash
+docker volume ls
+```
+
+Inspecionar um volume:
+```bash
+docker volume inspect meu-volume
 ```

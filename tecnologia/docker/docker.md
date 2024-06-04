@@ -12,7 +12,6 @@ Criar um dockefile para uma simples aplicação web utilizando nginx.  Build, ro
 
 * O que é docker networks? o que é bridge network? o que é host network? o que é overlay networks? Como criar e gerenciar networks com docker? 
 * O que são docker volumes? O que são bind mounts, suas diferenças e casos de uso? Como persistir data com docker?
-
 ## Projeto
 
 Criar um arquivo docker compose para uma aplicação multi-container (backend e banco de dados) implementando custom networking e persistência de dados entre volumes

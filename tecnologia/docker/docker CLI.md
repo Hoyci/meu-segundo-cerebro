@@ -9,4 +9,4 @@ Comandos básicos:
 * docker stop: Esse comando para um container
 * docker rm: Esse comando remove um container
 * docker rmi: Esse comando remove uma imagem
-* docker push: Esse comando faz push de uma imagem para uma cloud ou para o [[docker hub]]
+* docker push: Esse comando faz push de uma imagem para uma cloud ou para o docker hub

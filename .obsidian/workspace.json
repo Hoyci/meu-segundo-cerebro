@@ -13,19 +13,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tecnologia/docker/docker volumes.md",
-                "mode": "source",
-                "source": false
-              }
-            }
-          },
-          {
-            "id": "f1da486af32ec350",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "tecnologia/docker/docker volumes.md",
+                "file": "tecnologia/docker/docker.md",
                 "mode": "source",
                 "source": false
               }
@@ -97,7 +85,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tecnologia/docker/docker volumes.md",
+                "file": "tecnologia/docker/docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -114,7 +102,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tecnologia/docker/docker volumes.md",
+                "file": "tecnologia/docker/docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -137,7 +125,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tecnologia/docker/docker volumes.md"
+                "file": "tecnologia/docker/docker.md"
               }
             }
           }
@@ -160,8 +148,9 @@
   },
   "active": "087303e595a2aabf",
   "lastOpenFiles": [
-    "tecnologia/docker/docker.md",
     "tecnologia/docker/docker volumes.md",
+    "tecnologia/docker/docker CLI.md",
+    "tecnologia/docker/docker.md",
     "tecnologia/docker/devops.md",
     "tecnologia/docker/nginx.md",
     "tecnologia/docker/bridge network.md",
@@ -174,7 +163,6 @@
     "tecnologia/docker/docker hub.md",
     "docker networks.md",
     "tecnologia/docker/imagem.md",
-    "tecnologia/docker/docker CLI.md",
     "Dockerfile.md",
     "`docker run`.md",
     "tecnologia/docker/docker engine.md",
