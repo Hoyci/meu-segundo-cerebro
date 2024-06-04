@@ -1,4 +1,4 @@
-None network é uma configuração que desabilita completamente a conectividade de rede do [[container]]. Isso significa que o container não terá nenhuma interface de rede configurada e não poderá se comunicar com outros containers, host ou com a internet.
+None network é uma configuração que desabilita completamente a conectividade de rede do container. Isso significa que o container não terá nenhuma interface de rede configurada e não poderá se comunicar com outros containers, host ou com a internet.
 
 Deve ser usando quando deseja-se ter:
 * **Isolamento completo**: Quandoo você precisa de um container que não deve ter nenhuma comunicação de rede.
