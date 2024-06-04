@@ -1,17 +1,18 @@
+Ref: [[docker]]
 # Fase 1: Docker Básico
 
-* O que é [[docker]]? O que é um [[container]]? O que é uma [[imagem]]?
-* O que é [[docker hub]]? O que é [[docker CLI]]? O que é [[docker compose]]?
+* O que é docker? O que é um container? O que é uma imagem?
+* O que é docker hub? O que é docker CLI? O que é docker compose?
 * Comandos básicos de docker e o que fazem?: `docker run`, `docker build`, `docker pull`, `docker push`, `docker-compose up`
 * Entender a estrutra e as instruções usada em um dockerfile
 ## Projeto
 
-Criar um dockefile para uma simples aplicação web utilizando [[nginx]].  Build, rode e envie a imagem para o docker hub.
+Criar um dockefile para uma simples aplicação web utilizando nginx.  Build, rode e envie a imagem para o docker hub.
 
 # Fase 2: Networking e Volumes 
 
-* O que é [[docker networks]]? o que é [[bridge network]]? o que é [[ host network]]? o que é [[overlay networks]]? Como criar e gerenciar networks com docker? 
-* O que são [docker volumes](https://docs.docker.com/storage/volumes/)? O que são [[bind mounts]], suas diferenças e casos de uso? Como persistir data com docker?
+* O que é docker networks? o que é bridge network? o que é host network? o que é overlay networks? Como criar e gerenciar networks com docker? 
+* O que são [docker volumes](https://docs.docker.com/storage/volumes/)? O que são bind mounts, suas diferenças e casos de uso? Como persistir data com docker?
 
 ## Projeto
 

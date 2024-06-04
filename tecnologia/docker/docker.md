@@ -5,3 +5,7 @@ Deve-se usar docker porque garante:
 * Eficiência: Container usa menos recurso do que máquinas virtuais
 * Velocidade: É mais rápido para desenvolver, testar e implementar software
 * Facilidade: Simplifica o processo de configuração do ambiente de desenvolvimento
+
+
+
+refs: [[container]]
