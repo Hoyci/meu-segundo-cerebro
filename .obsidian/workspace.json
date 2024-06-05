@@ -25,7 +25,7 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tecnologia/docker/docker compose.md",
+                "file": "tecnologia/docker/docker.md",
                 "mode": "source",
                 "source": false
               }
@@ -98,7 +98,7 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "tecnologia/docker/docker compose.md",
+                "file": "tecnologia/docker/docker.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +115,7 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "tecnologia/docker/docker compose.md",
+                "file": "tecnologia/docker/docker.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -138,7 +138,7 @@
             "state": {
               "type": "outline",
               "state": {
-                "file": "tecnologia/docker/docker compose.md"
+                "file": "tecnologia/docker/docker.md"
               }
             }
           }
@@ -161,6 +161,7 @@
   },
   "active": "00f27009b6be9a21",
   "lastOpenFiles": [
+    "tecnologia/docker/docker compose.md",
     "tecnologia/docker/docker.md",
     "tecnologia/docker/docker volumes.md",
     "tecnologia/docker/docker CLI.md",
@@ -168,7 +169,6 @@
     "tecnologia/docker/nginx.md",
     "tecnologia/docker/bridge network.md",
     "tecnologia/docker/docker networks.md",
-    "tecnologia/docker/docker compose.md",
     "tecnologia/docker/none network.md",
     "tecnologia/docker/container.md",
     "tecnologia/docker/Sem título.md",
