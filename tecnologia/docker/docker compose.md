@@ -25,11 +25,36 @@ Exemplo:
 ```yaml
 version: '3.8'
 sevices:
-	image: nginx:latest
-	ports:
-		- "800"
-networks::
-	# definição de redes
+	web:
+		image: nginx:latest
+		ports:
+			- "8080:80"
+		networks:
+			- mynetwork
+		volumes:
+			- myvolume:/usr/share/nginx/html
+	app:
+		image: myapp:latest
+		depends_on:
+			- db
+		networks:
+			- mynetworkd
+		volumes:
+			- myappdata:/var/lib/myapp/data
+	db:
+		image: postgres:13
+		environment:
+			POSTGTES_USER: user
+			POSTGRES_PASSWORD: password
+		volumes:
+			- dbdata:/var/lib/postgresql/data
+		networks:
+			- mynetwork
+networks:
+	mynetwork:
+		driver: bridge
 volumes:
-	# definição de volumes
+	myvolume:
+	myappdata:
+	dbdata:
 ```
