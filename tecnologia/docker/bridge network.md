@@ -8,7 +8,7 @@ Brigde network é a configuração padrão para containers docker. Quando você 
 
 ## Como funciona?
 
-A rede bridge é uma rede internado no host docker que permite que os containers conectados a ela se comuniquem entre si. Essa rede é isolada da rede externa (como a internet ou a rede local do host), a menos que você exponha portas específicas.
+A rede bridge é uma rede interna no host docker que permite que os containers conectados a ela se comuniquem entre si. Essa rede é isolada da rede externa (como a internet ou a rede local do host), a menos que você exponha portas específicas.
 
 ## Comandos básicos
 
