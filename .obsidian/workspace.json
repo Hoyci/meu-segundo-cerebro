@@ -14,7 +14,7 @@
               "type": "markdown",
               "state": {
                 "file": "tecnologia/docker/Entendendo Docker e criando seus primeiros containers.md",
-                "mode": "source",
+                "mode": "preview",
                 "source": false
               }
             }
@@ -148,16 +148,16 @@
   },
   "active": "0ad892f89861c39b",
   "lastOpenFiles": [
-    "conflict-files-obsidian-git.md",
     "tecnologia/docker/Entendendo Docker e criando seus primeiros containers.md",
+    "tecnologia/docker/container.md",
+    "tecnologia/docker/imagem.md",
+    "tecnologia/docker/nginx.md",
+    "tecnologia/docker/docker.md",
+    "conflict-files-obsidian-git.md",
     "tecnologia/docker/none network.md",
     "tecnologia/docker/host network.md",
-    "tecnologia/docker/nginx.md",
-    "tecnologia/docker/imagem.md",
     "tecnologia/docker/docker CLI.md",
-    "tecnologia/docker/docker.md",
     "tecnologia/docker/devops.md",
-    "tecnologia/docker/container.md",
     "tecnologia/docker/docker networks.md",
     "tecnologia/docker/docker volumes.md",
     "tecnologia/docker/docker hub.md",
