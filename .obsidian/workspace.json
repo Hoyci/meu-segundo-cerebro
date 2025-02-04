@@ -199,11 +199,11 @@
   },
   "active": "6cbf66b62f0791fb",
   "lastOpenFiles": [
+    "tecnologia/kubernetes/Pods.md",
     "tecnologia/docker/container.md",
     "tecnologia/docker/Docker.md",
     "tecnologia/kubernetes/Kubernetes.md",
     "tecnologia/kubernetes/Nodes.md",
-    "tecnologia/kubernetes/Pods.md",
     "tecnologia/docker/docker CLI.md",
     "tecnologia/docker/docker compose.md",
     "tecnologia/docker/bridge network.md",
