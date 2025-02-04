@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tecnologia/kubernetes/Nodes.md",
+                "file": "tecnologia/kubernetes/Kubernetes.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Nodes"
+              "title": "Kubernetes"
             }
           },
           {
@@ -41,15 +41,16 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tecnologia/docker/container.md",
+                "file": "tecnologia/kubernetes/Pods.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "container"
+              "title": "Pods"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -196,15 +197,15 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0ad892f89861c39b",
+  "active": "6cbf66b62f0791fb",
   "lastOpenFiles": [
+    "tecnologia/docker/container.md",
+    "tecnologia/docker/Docker.md",
     "tecnologia/kubernetes/Kubernetes.md",
-    "tecnologia/kubernetes/Pods.md",
     "tecnologia/kubernetes/Nodes.md",
+    "tecnologia/kubernetes/Pods.md",
     "tecnologia/docker/docker CLI.md",
     "tecnologia/docker/docker compose.md",
-    "tecnologia/docker/Docker.md",
-    "tecnologia/docker/container.md",
     "tecnologia/docker/bridge network.md",
     "Untitled.md",
     "containers.md",

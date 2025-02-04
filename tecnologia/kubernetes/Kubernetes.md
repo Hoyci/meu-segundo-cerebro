@@ -1,3 +1,5 @@
+# Kubernetes
+
 Kubernetes é um ferramenta open-source para orquestração de containers [[docker]] desenvolvida pelo Google.
 Orquestração nesse caso significa que Kubernetes ajuda a gerenciar aplicações que são construída a partir de dezenas, centenas ou milhares de containers em diferentes ambientes (Máquinas físicas, máquinas virtuais ou ambientes de Clouds).
 # Quais problemas Kubernetes Resolve?
@@ -8,7 +10,6 @@ Além da orquestração, o Kubernetes resolve outro problema muito comum nesse t
 * **Escalabilidade sob demanda**: Automaticamente a ferramenta ajusta o número de containers/pods com base na demanda, podendo ser de CPU, memória ou outras métricas.
 * **Gestão de secrets**: Centraliza dados sensíveis (como senhas) de forma segura, separando-os do código da aplicação.
 * **Rollouts e rollbacks automatizados**: Permite atualizações graduais e reversão imediata em caso de falhas, garantindo alta disponibilidade.
-
 # Arquitetura do Kubernetes 
 
 O cluster do Kubernetes é compose pelo control panel e pelos worker nodes. 

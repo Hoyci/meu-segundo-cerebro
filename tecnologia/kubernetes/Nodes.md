@@ -1,3 +1,5 @@
+# Nodes
+
 Um node no contexto de kubernetes é uma máquina física ou virtual que compõe o cluster e fornece recurso (CPU, memória, rede) para executar os [[pods]]. 
 Essa máquina roda um sistema operacional que pode variar de acordo com a infraestrutura e as necessidades, mas a maioria dos clusters usam distribuições linux.
 

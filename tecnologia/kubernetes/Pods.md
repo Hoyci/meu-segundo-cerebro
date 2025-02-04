@@ -1,7 +1,7 @@
+# Pods
+
 No kubernetes, um pod é a menor parte da ferramenta. Ele representa um conjunto de um ou mais containers que compartilham os mesmos recursos (como rede e armazenamento).
 Os pods não são permanentes, isso significa que quando um pod falha ou é encerrado, um novo pod pode ser criado pelo kubernetes.
-
-
 # Tipos de pods
 1.  **Pod com um único container**: Esse é o pod mais comumente usado. 
 	Deve ser usado quando: 
