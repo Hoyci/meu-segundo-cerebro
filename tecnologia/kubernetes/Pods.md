@@ -1,7 +1,7 @@
 # Pods
 
 No kubernetes, um pod é a menor parte da ferramenta. Ele representa um conjunto de um ou mais containers que compartilham os mesmos recursos (como rede e armazenamento).
-Os pods não são permanentes, isso significa que quando um pod falha ou é encerrado, um novo pod pode ser criado pelo kubernetes.
+Os pods são únicos e não permanentes, ou seja, se um pod falhar ou for encerrado, o Kubernetes pode criar outro no lugar, mas com identidade diferente do antigo, o que significa que ele terá um novo endereço de IP.
 # Tipos de pods
 1.  **Pod com um único container**: Esse é o pod mais comumente usado. 
 	Deve ser usado quando: 
@@ -25,7 +25,7 @@ Os pods não são permanentes, isso significa que quando um pod falha ou é ence
 4. O **Container Runtime** (como Docker, containerd ou CRI-O) executa os containers dentro do Pod.
 5. O Kubernetes mantém o estado do Pod conforme especificado no deployment (pode recriar se necessário).
 
-Exemplo de YAML:
+Exemplo prático de um pod:
 ``` YAML
 apiVersion: v1
 kind: Pod
