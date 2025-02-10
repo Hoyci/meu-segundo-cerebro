@@ -20,10 +20,10 @@ Isso é importante para bancos de dados, sistemas distribuídos e qualquer aplic
 ## Principais pontos:
 
 * I**dentidade Estável dos Pods:**  
-	Cada Pod gerenciado por um StatefulSet recebe um nome único e previsível (por exemplo, `minhaapp-0`, `minhaapp-1`, etc.). Essa identidade estável é crucial para aplicações que precisam se reconhecer ou se comunicar de forma ordenada, como bancos de dados ou sistemas de mensageria.
+	Cada Pod gerenciado por um StatefulSet recebe um nome único e previsível (por exemplo, `meuapp-0`, `meuapp-1`, etc.). Essa identidade estável é crucial para aplicações que precisam se reconhecer ou se comunicar de forma ordenada, como bancos de dados ou sistemas de mensageria.
 	
 * **Ordem de Criação e Atualização:**  
-	O StatefulSet garante uma ordem específica tanto para a criação quanto para a exclusão dos Pods. Por exemplo, durante a criação, o Pod `minhaapp-0` será criado e estará pronto antes do `minhaapp-1`. Essa ordem é importante para manter a integridade de aplicativos distribuídos que dependem de uma sequência correta para inicialização.
+	O StatefulSet garante uma ordem específica tanto para a criação quanto para a exclusão dos Pods. Por exemplo, durante a criação, o Pod `meuapp-0` será criado e estará pronto antes do `meuapp-1`. Essa ordem é importante para manter a integridade de aplicativos distribuídos que dependem de uma sequência correta para inicialização.
 	
 * **Persistência de Dados com VolumeClaimTemplates:**  
 	Um dos pontos fortes do StatefulSet é a capacidade de associar volumes persistentes a cada Pod individualmente, utilizando _VolumeClaimTemplates_. Dessa forma, mesmo que um Pod seja reiniciado ou reimplantado, o volume associado (que armazena os dados) permanece, garantindo a continuidade dos dados. Essa abordagem é fundamental para bancos de dados, caches e outros serviços que exigem armazenamento duradouro.
