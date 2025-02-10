@@ -35,7 +35,8 @@
               "title": "Pods"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -182,10 +183,10 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0ad892f89861c39b",
+  "active": "6cbf66b62f0791fb",
   "lastOpenFiles": [
-    "tecnologia/kubernetes/Volume.md",
     "tecnologia/kubernetes/Deployment x Statefulset.md",
+    "tecnologia/kubernetes/Volume.md",
     "tecnologia/kubernetes/Service.md",
     "tecnologia/kubernetes/Secret.md",
     "tecnologia/kubernetes/ConfigMap.md",

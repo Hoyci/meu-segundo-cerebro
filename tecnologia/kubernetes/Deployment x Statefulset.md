@@ -1,7 +1,7 @@
 # Deployment
 
-Deployment é um recurso do kubernetes que, de forma declarativa, você informa quantas réplicas de um Pod devem estar em execução, qual imagem de container utilizar, quais variáveis de ambiente configurar.
-Deve se levar em consideração que deployment é ideal para aplicações stateless, como servidores web, APIs e serviços que podem ser escalados horizontalmente sem depender de uma identidade única ou armazenamento persistente associado a cada instância.
+**Deployment** é um recurso do kubernetes que, de forma declarativa, você informa quantas réplicas de um Pod devem estar em execução, qual imagem de container utilizar, quais variáveis de ambiente configurar.
+Deve se levar em consideração que **deployment** é ideal para aplicações stateless, como servidores web, APIs e serviços que podem ser escalados horizontalmente sem depender de uma identidade única ou armazenamento persistente associado a cada instância.
 ## Principais pontos:
 
 * **Gerenciamento Declarativo**: 
@@ -17,11 +17,10 @@ Deve se levar em consideração que deployment é ideal para aplicações statel
 **StatefulSet** é um recurso do Kubernetes que, de forma declarativa, você informa quantas réplicas de um Pod devem estar em execução, qual imagem de container utilizar e quais configurações de ambiente aplicar.
 Diferente do **Deployment**, o **StatefulSet** é ideal para aplicações que precisam manter uma identidade única entre réplicas e que geralmente dependem de armazenamento persistente.
 Isso é importante para bancos de dados, sistemas distribuídos e qualquer aplicação que precise que cada instância (Pod) tenha um nome fixo, um volume específico e uma ordem de inicialização e desligamento.
-
 ## Principais pontos:
 
 * I**dentidade Estável dos Pods:**  
-	Cada Pod gerenciado por um StatefulSet recebe um nome único e previsível (por exemplo, `minhaapp-0`, `minhaapp-1`, etc.). Essa identidade estável é crucial para aplicações que precisam se reconhecer ou se comunicar de forma ordenada, como bancos de dados ou sistemas de mensageria.*
+	Cada Pod gerenciado por um StatefulSet recebe um nome único e previsível (por exemplo, `minhaapp-0`, `minhaapp-1`, etc.). Essa identidade estável é crucial para aplicações que precisam se reconhecer ou se comunicar de forma ordenada, como bancos de dados ou sistemas de mensageria.
 	
 * **Ordem de Criação e Atualização:**  
 	O StatefulSet garante uma ordem específica tanto para a criação quanto para a exclusão dos Pods. Por exemplo, durante a criação, o Pod `minhaapp-0` será criado e estará pronto antes do `minhaapp-1`. Essa ordem é importante para manter a integridade de aplicativos distribuídos que dependem de uma sequência correta para inicialização.
