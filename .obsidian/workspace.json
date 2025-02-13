@@ -68,7 +68,7 @@
             "state": {
               "type": "search",
               "state": {
-                "query": "",
+                "query": "blue",
                 "matchingCase": false,
                 "explainSearch": false,
                 "collapseAll": false,
@@ -89,7 +89,8 @@
               "title": "Bookmarks"
             }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "horizontal",
@@ -183,7 +184,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "6cbf66b62f0791fb",
+  "active": "40b0d7c01c78a40f",
   "lastOpenFiles": [
     "tecnologia/kubernetes/Deployment x Statefulset.md",
     "tecnologia/kubernetes/Pods.md",
