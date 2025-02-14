@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "tecnologia/kubernetes/Volume.md",
+                "file": "tecnologia/kubernetes/Service.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Volume"
+              "title": "Service"
             }
           }
         ]
@@ -170,27 +170,27 @@
   },
   "active": "0ad892f89861c39b",
   "lastOpenFiles": [
-    "tecnologia/kubernetes/Deployment x Statefulset.md",
-    "tecnologia/kubernetes/ConfigMap.md",
-    "tecnologia/kubernetes/Secret.md",
-    "tecnologia/kubernetes/Service.md",
     "tecnologia/kubernetes/Volume.md",
+    "tecnologia/kubernetes/ConfigMap.md",
+    "tecnologia/kubernetes/Deployment x Statefulset.md",
+    "tecnologia/kubernetes/Secret.md",
+    "tecnologia/kubernetes/Kubernetes.md",
+    "tecnologia/kubernetes/Ingress.md",
+    "tecnologia/docker/docker networks.md",
+    "tecnologia/docker/Docker.md",
+    "tecnologia/kubernetes/Service.md",
+    "tecnologia/kubernetes/Pods.md",
     "Untitled.canvas",
     "2025-02-13.md",
-    "tecnologia/kubernetes/Pods.md",
-    "tecnologia/kubernetes/Ingress.md",
     "tecnologia/kubernetes/Nodes.md",
-    "tecnologia/kubernetes/Kubernetes.md",
     "tecnologia/kubernetes/ingress-chart.png",
     "Pasted image 20250205080402.png",
-    "tecnologia/docker/Docker.md",
     "Untitled.md",
     "tecnologia/docker/container.md",
     "tecnologia/docker/docker CLI.md",
     "tecnologia/docker/docker compose.md",
     "tecnologia/docker/bridge network.md",
     "containers.md",
-    "tecnologia/docker/docker networks.md",
     "tecnologia/docker/Entendendo Docker e criando seus primeiros containers.md",
     "tecnologia/kubernetes",
     "tecnologia/docker/imagem.md",
