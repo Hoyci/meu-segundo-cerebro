@@ -12,7 +12,7 @@ Além da orquestração, o Kubernetes resolve outro problema muito comum nesse t
 * **Rollouts e rollbacks automatizados**: Permite atualizações graduais e reversão imediata em caso de falhas, garantindo alta disponibilidade.
 # Arquitetura do Kubernetes 
 
-O cluster do Kubernetes é compose pelo control panel e pelos worker nodes. 
+O cluster do Kubernetes é composto pelo control panel e pelos worker nodes. 
 O control panel, que pode ser constituído por um ou mais master nodes, inclui os seguintes componentes: 
 * **API Server**: Ponto central de comunicação onde todos comandos do kubernetes (exemplo: kubectl logs ...) são recebidos e validados.
 * **Scheduler**: Responsável por designar os pods aos worker nodes com base em critérios de recursos e restrições.
