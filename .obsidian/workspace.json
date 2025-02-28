@@ -20,8 +20,21 @@
               "icon": "lucide-file",
               "title": "Service"
             }
+          },
+          {
+            "id": "c7d93e7ebc1b02a8",
+            "type": "leaf",
+            "state": {
+              "type": "release-notes",
+              "state": {
+                "currentVersion": "1.8.7"
+              },
+              "icon": "lucide-book-up",
+              "title": "Release Notes 1.8.7"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -168,7 +181,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "0ad892f89861c39b",
+  "active": "c7d93e7ebc1b02a8",
   "lastOpenFiles": [
     "tecnologia/kubernetes/Nodes.md",
     "tecnologia/kubernetes/Kubernetes.md",
