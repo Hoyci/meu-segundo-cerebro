@@ -20,8 +20,23 @@
               "icon": "lucide-file",
               "title": "Start research"
             }
+          },
+          {
+            "id": "70c9fea32e9a2d65",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Start research.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Start research"
+            }
           }
-        ]
+        ],
+        "currentTab": 1
       }
     ],
     "direction": "vertical"
@@ -168,7 +183,7 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "6e0fc6a9a4304a95",
+  "active": "70c9fea32e9a2d65",
   "lastOpenFiles": [
     "Start research.md",
     "Untitled.md",
