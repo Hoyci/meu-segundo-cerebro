@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Start research.md",
+                "file": "Goroutines.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Start research"
+              "title": "Goroutines"
             }
           },
           {
@@ -27,12 +27,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Start research.md",
+                "file": "Goroutines.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Start research"
+              "title": "Goroutines"
             }
           }
         ],
@@ -185,7 +185,7 @@
   },
   "active": "70c9fea32e9a2d65",
   "lastOpenFiles": [
-    "Start research.md",
+    "Goroutines.md",
     "Untitled.md",
     "tecnologia/Microsserviços",
     "tecnologia/kubernetes/Nodes.md",
