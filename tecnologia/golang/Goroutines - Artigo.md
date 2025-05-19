@@ -53,7 +53,7 @@ E o schedule identifica que uma goroutine está pronta para execução através 
 
 A distribuição de goroutines entre os núcleos do processador é feita indiretamente pelo scheduler do Go, que utiliza uma estratégia de agendamento **M:N** e **work-stealing** para otimizar o uso de recursos.
 
-* **Processadores Lógicos (Ps):** O número de Ps é definido por `GOMAXPROCS` (padrão: núcleos da CPU). Cada P possui uma fila local de goroutines prontas e está associado a uma thread do sistema operacional (**M**). Os Ps são a unidade central de escalonamento.
+* **Processadores Lógicos (Ps):** O número de Ps é definido por `GOMAXPROCS`. Cada P possui uma fila local de goroutines prontas e está associado a uma thread do sistema operacional (**M**). Os Ps são a unidade central de escalonamento.
 
 * **Work-Stealing:** Se um P fica sem goroutines em sua fila local, ele "rouba" metade das goroutines da fila de outro P ocupado ou busca da fila global. Isso equilibra a carga entre núcleos, evitando ociosidade.
 
