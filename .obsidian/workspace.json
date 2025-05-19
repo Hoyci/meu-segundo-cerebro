@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "3faf407d784276bb",
+        "id": "0f6e7466b3a12f9a",
         "type": "tabs",
         "children": [
           {
-            "id": "a5435ed78a3fd221",
+            "id": "9d9898eab61103d4",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -169,10 +169,11 @@
       "copilot:Open Copilot Chat": false
     }
   },
-  "active": "a5435ed78a3fd221",
+  "active": "9d9898eab61103d4",
   "lastOpenFiles": [
-    "tecnologia/golang/Goroutines.md",
+    "tecnologia/golang/Introdução.md",
     "tecnologia/golang/Goroutines - Artigo.md",
+    "tecnologia/golang/Goroutines.md",
     "tecnologia/golang/concorrência.md",
     "tecnologia/golang/Golang.md",
     "tecnologia/golang/paralelismo.md",
@@ -202,7 +203,6 @@
     "containers.md",
     "tecnologia/docker/Entendendo Docker e criando seus primeiros containers.md",
     "tecnologia/kubernetes",
-    "tecnologia/docker/imagem.md",
     "Sem título.canvas",
     "tecnologia/docker",
     "Sem título",
