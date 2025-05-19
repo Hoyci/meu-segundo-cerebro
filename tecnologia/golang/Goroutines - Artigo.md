@@ -39,7 +39,8 @@ O runtime do Go gerencia o ciclo de vida das goroutines através de um scheduler
 
 * **Runnable**: A goroutine está pronta para ser executada, mas ainda não está em nenhum thread.
 * **Running**: A goroutine está sendo executada em uma thread do sistema.
-* **Waiting**: A goroutine está bloqueada (ex: aguardando algum canal ou dormindo via `Time.Sleep()`)
+* **Blocked**: A goroutine está temporariamente parada, esperando por algum evento externo. Isso pode incluir esperar por uma operação de I/O (ex: ler um arquivo, fazer uma requisição de rede) esperar por um lock (mutex) ser liberado ou esperar por dados serem enviados ou recebidos através de um canal
+* **Terminated**: A goroutine completou sua execução ou foi finalizada devido à terminação da goroutine principal.
 
 E o schedule identifica que uma goroutine está pronta para execução através dos seguintes mecanismos:
 
