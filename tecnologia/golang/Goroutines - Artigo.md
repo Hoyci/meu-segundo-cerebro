@@ -51,7 +51,7 @@ E o schedule identifica que uma goroutine está pronta para execução através 
 
 **Tá. mas como o runtime sabe para qual núcleo do processador deve ser enviada a goroutine assim garantindo a utilização eficiente dos recursos da máquina?**
 
-A distribuição de goroutines entre os núcleos do processador é feita indiretamente pelo scheduler do Go, que utiliza uma estratégia de agendamento **M:N** e **work-stealing** para otimizar o uso de recursos.
+A distribuição de goroutines entre os núcleos do processador é feita indiretamente pelo scheduler do Go, que utiliza uma estratégia de agendamento **M:N** onde `M` goroutines são distribuídas em `N` threads do sistema operacional. Cada thread `M` é associada a um processador lógico `P`, que mantém uma fila local de goroutines prontas.
 
 * **Processadores Lógicos (Ps):** O número de Ps é definido por `GOMAXPROCS`. Cada P possui uma fila local de goroutines prontas e está associado a uma thread do sistema operacional (**M**). Os Ps são a unidade central de escalonamento.
 
