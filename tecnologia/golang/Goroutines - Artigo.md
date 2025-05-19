@@ -8,6 +8,7 @@ Este repositório foi criado para ajudar desenvolvedores a entender e aplicar go
    Concorrência e paralelismo são termos comumente usados para descrever a execução de múltiplas tarefas. Mas apesar de, as vezes, serem confudidos como a mesma coisa, eles não são pois eles representam a forma como as tarefas são gerenciadas e executadas.
    
    **Concorrencia**: é a capacidade de um programar lidar com múltiplas tarefas aparentemente ao mesmo tempo, mesmo que a execução dependa da troca rápida entres as tarefas permitindo que o sistema progrida em diversas tarefas sem esperar que uma termine completamente antes de iniciar a outra. 
+   
    A **analogia** clássica para explicar esse conceito é a de imaginar um garçom em um restaurante. Ele precisa atender diversos clientes, pegar os pedidos, servir as bebidas, servir os pratos, receber o pagamento e outras coisas que as vezes ele nem é pago para fazer rsrs. Mas imagina que se ele fosse parar e esperar completar o ciclo completo de um cliente para começar a atender o próximo, a espera seria longa e o restaurante iria falir. Ao invés disso, ele alterna rapidamente entre cada cliente realizando a atividade necessária que aquele cliente depende naquele momento, assim criando a ilusão de que está atendendo todos simultaneamente, mesmo que ele dedique apenas alguns minutos a cada um por vez.
    
    **Paralelismo**: é a capacidade de executar múltiplas tarefas simultaneamente distribuindo-as entre múltiplas entidades capaz de realizar as tarefas, como os núcleos de um processador.
