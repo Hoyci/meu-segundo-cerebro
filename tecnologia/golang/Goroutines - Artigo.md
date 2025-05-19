@@ -34,15 +34,17 @@ Um coisa interessante a ser observar é que todas as instâncias de paralelismo 
 
 O runtime do Go gerencia o ciclo de vida das goroutines através de um scheduler que monitora seu estado em tempo real. As goroutines podem estar em três estados que são: 
 
-**Runnable**: A goroutine está pronta para ser executada, mas ainda não está em nenhum thread.
-**Running**: A goroutine está sendo executada em uma thread do sistema.
-**Waiting**: A goroutine está bloqueada (ex: aguardando algum canal ou dormindo via `Time.Sleep()`)
+* **Runnable**: A goroutine está pronta para ser executada, mas ainda não está em nenhum thread.
+* **Running**: A goroutine está sendo executada em uma thread do sistema.
+* **Waiting**: A goroutine está bloqueada (ex: aguardando algum canal ou dormindo via `Time.Sleep()`)
 
 E o schedule identifica que uma goroutine está pronta para execução através dos seguintes mecanismos:
 
-**Eventos de desbloqueio**: Quando uma goroutine bloqueada por uma operação (ex: espera por um canal ou dormindo em um `Time.Sleep()`)  é desbloqueada, o runtime é notificado e move a goroutine para a fila de _runnable_.
-**Integração com o sistema operacional**: Para operações de I/O (ex: leitura dados de um arquivo ou obter resposta de uma rede) o runtime utiliza um network poller para monitorar os eventos e quando um recurso I/O fica disponível, o poller notifica o runtime e assim a coloca na fila de _runnable_.
-**Filas de prontas**: As goroutines são organizadas em filas locais (uma por processador lógico) e uma fila global. Quando uma goroutine é criada ou desbloqueada, ela é adicionada a uma dessas filas, sinalizando assim o scheduler da sua disponibilidade.
+* **Eventos de desbloqueio**: Quando uma goroutine bloqueada por uma operação (ex: espera por um canal ou dormindo em um `Time.Sleep()`)  é desbloqueada, o runtime é notificado e move a goroutine para a fila de _runnable_.
+
+*  **Integração com o sistema operacional**: Para operações de I/O (ex: leitura dados de um arquivo ou obter resposta de uma rede) o runtime utiliza um network poller para monitorar os eventos e quando um recurso I/O fica disponível, o poller notifica o runtime e assim a coloca na fila de _runnable_.
+
+* **Filas de prontas**: As goroutines são organizadas em filas locais (uma por processador lógico) e uma fila global. Quando uma goroutine é criada ou desbloqueada, ela é adicionada a uma dessas filas, sinalizando assim o scheduler da sua disponibilidade.
 
 **Tá. mas como o runtime sabe para qual núcleo do processador deve ser enviada a goroutine assim garantindo a utilização eficiente dos recursos da máquina?**
 
