@@ -3,7 +3,7 @@ Este repositório foi criado para ajudar desenvolvedores a entender e aplicar go
 
 ## Table of Contents
 1. [Introduction](#introduction)  
-   Antes de adentrarmos no assunto de goroutines, é importante entendermos a diferença entre **[[concorrência]]** e **[[paralelismo]]**, haja vista que **[[Golang]]** é uma linguagem que utiliza fortemente o conceito de concorrência para criar aplicações mais performáticas.
+   Antes de adentrarmos no assunto de goroutines, é importante entendermos a diferença entre **[[concorrência]]** e **[[paralelismo]]**, haja vista que concorrência é um aspecto fundamental da linguagem **[[Golang]]** que permite que os desenvolvedores escreva aplicações que realizam múltiplas tarefas concorrentemente.
    
    Concorrência e paralelismo são termos comumente usados para descrever a execução de múltiplas tarefas. Mas, apesar de às vezes serem confudidos como a mesma coisa, eles não são, pois representam formas diferentes de como as tarefas são gerenciadas e executadas.
    
@@ -19,52 +19,79 @@ Este repositório foi criado para ajudar desenvolvedores a entender e aplicar go
    
    **Tá, mas se a linguagem Golang foi criada recentemente e já existiam processadores multi-cores, porque os criadores optaram usar concorrência ao invés de paralelismo?**
    
-   Os criadores do Go adotaram a filosofia do *Communicating Sequential Processes* (CSP), onde você cria sua aplicação utilizando diversas [[goroutines]] que trocam mensagens entre si utilizando canais. Assim, você, como programador, não precisa se preocupar em alocar cada tarefa a um núcleo do processador, basta descrever _o que_ cada parte do programa faz e como elas se comunicam. O runtime do Go cuida de mapear essas goroutines e se o seu computador tiver mais de um núcleo disponível, a linguagem irá executá-las em paralelo; se for um processador single‑core, ele faz o revezamento delas de forma rápida (concorrência).
+   Os criadores do Go adotaram a filosofia do [*Communicating Sequential Processes* (CSP)](https://medium.com/@richardlayte/go-concurrency-and-starbucks-5aa03303655f), onde você cria sua aplicação utilizando diversas [[goroutines]] que trocam mensagens entre si utilizando canais. Assim, você, como programador, não precisa se preocupar em alocar cada tarefa a um núcleo do processador, basta descrever _o que_ cada parte do programa faz e como elas se comunicam. O runtime do Go cuida de mapear essas goroutines e se o seu computador tiver mais de um núcleo disponível, a linguagem irá executá-las em paralelo; se for um processador single‑core, ele faz o revezamento delas de forma rápida (concorrência).
    
 2. [O que são Goroutines?](#o-que-sao-goroutines)  
-[[Goroutines]] são pequenas funções que são executadas de forma concorrente, ou seja, ao mesmo tempo que outras tarefas. (Imagine um garçom que anota o pedido, entrega ao chef e continua servindo outras mesas enquanto o pedido está sendo preparado).
-Diferentemente de threads, as goroutines extremamente leves. Quando digo leve, quero dizer que elas consomem pouco recurso computacional para serem executasse e além disso o próprio go cuida de aumentar ou diminuir a quantidade de recurso computacional por elas conforme a necessidade fazendo com que seu programa seja mais eficiente. 
-É necessário entender também que apesar delas serem executaras ao mesmo tempo, o go organiza todas a distribuição de todas as goroutines entre várias threads do sistema operacional. E se uma ficar paralisada por algum motivo (como aguardando uma resposta da internet), as outras continuam rodando fazendo com que o sistema continue responsivo
-É importante notar que todas as instâncias de paralelismo são também formas de concorrência, pois se várias coisas estão acontecendo ao mesmo tempo, elas também estão sendo gerenciadas simultaneamente. No entanto, o inverso não é necessariamente verdadeiro; um programa concorrente pode não alcançar o paralelismo se estiver sendo executado em um processador com um único núcleo. Nesse caso, as tarefas seriam apenas intercaladas, simulando a simultaneidade, mas sem a execução paralela real.
-3. [Criando Goroutines](#criando-goroutines)  
+   **[[Goroutines]]** são funções leves (leve, nesse cenário, significa que elas necessitam de ~2KB de memoria para serem criadas e crescem/diminuem dinamicamente conforme a necessidade. [Fonte](https://github.com/golang/go/blob/2cde950049dd46cae3ae91cde3e270825793ba0f/src/runtime/stack.go#L75-L80)) que são executadas de forma concorrente, gerenciadas pelo runtime do Go. As goroutines fornecem um mecanismo de alto nível para estruturar aplicações de maneira concorrente, abstraindo a complexidade associadas às threads tradicionalmente usada por outras linguagens e sendo gerenciadas pelo próprio runtime do Go, que decide quando, como e quanto de recurso computacional elas precisam para serem executadas.
+   
+   Como comentei na introdução, golang suporta a execução de tarefas de forma paralela ao distribuir as goroutines entre os núcos de CPU disponíveis. O quão paralelo a aplicação pode ser é configurável usando a função `runtime.GOMAXPROCS(n)`, que define o número máximo de threads do sistema operacional que podem executar código Go. Observação: o padrão geralmente é o número de núcleos da máquina que está execuando o código.
+   
+   Uma breve explicação sobre como funciona o runtime:  o runtime da linguagem possui um `scheduler` que basicamente é o resposável por distribuir as goroutines prontas para execução entre as threads do sistema operacional, que são destinadas a serem executadas nos núcleos da CPU do computador. Quando você define `runtime.GOMAXPROCS(n)` para um valor maior que 1, você está permitindo que o Go utilize múltiplo núcleos para executar as goroutines paralelamente.
+   
+   Um coisa interessante a ser observar é que todas as instâncias de paralelismo são também formas de concorrência, pois se várias coisas estão acontecendo ao mesmo tempo, elas também estão sendo gerenciadas simultaneamente. No entanto, o inverso não é necessariamente verdadeiro; um programa concorrente pode não alcançar o paralelismo se estiver sendo executado em um processador com um único núcleo. Nesse caso, as tarefas seriam apenas intercaladas, simulando a simultaneidade, mas sem a execução paralela real.
+   
+   **Tá, mas o runtime sabe que uma goroutine está pronta para ser executada?**
+   
+   O runtime do Go gerencia o ciclo de vida das goroutines através de um scheduler que monitora seu estado em tempo real. As goroutines podem estar em três estados que são: 
+   
+   **Runnable**: A goroutine está pronta para ser executada, mas ainda não está em nenhum thread.
+   **Running**: A goroutine está sendo executada em uma thread do sistema.
+   **Waiting**: A goroutine está bloqueada (ex: aguardando algum canal ou dormindo via `Time.Sleep()`)
+   
+   E o schedule identifica que uma goroutine está pronta para execução através dos seguintes mecanismos:
+   
+   **Eventos de desbloqueio**: Quando uma goroutine bloqueada por uma operação (ex: espera por um canal ou dormindo em um `Time.Sleep()`)  é desbloqueada, o runtime é notificado e move a goroutine para a fila de _runnable_.
+   **Integração com o sistema operacional**: Para operações de I/O (ex: leitura dados de um arquivo ou obter resposta de uma rede) o runtime utiliza um network poller para monitorar os eventos e quando um recurso I/O fica disponível, o poller notifica o runtime e assim a coloca na fila de _runnable_.
+   **Filas de prontas**: As goroutines são organizadas em filas locais (uma por processador lógico) e uma fila global. Quando uma goroutine é criada ou desbloqueada, ela é adicionada a uma dessas filas, sinalizando assim o scheduler da sua disponibilidade.
+   
+   **Tá. mas como o runtime sabe para qual núcleo do processador deve ser enviada a goroutine assim garantindo a utilização eficiente dos recursos da máquina?**
+   
+   A distribuição de goroutines entre os núcleos do processador é feita indiretamente pelo scheduler do Go, que utiliza uma estratégia de agendamento **M:N** e **work-stealing** para otimizar o uso de recursos.
+   - **Processadores Lógicos (Ps):** O número de Ps é definido por `GOMAXPROCS` (padrão: núcleos da CPU). Cada P possui uma fila local de goroutines prontas e está associado a uma thread do sistema operacional (**M**). Os Ps são a unidade central de escalonamento.
+   -  **Work-Stealing:** Se um P fica sem goroutines em sua fila local, ele "rouba" metade das goroutines da fila de outro P ocupado ou busca da fila global. Isso equilibra a carga entre núcleos, evitando ociosidade.
+   - **Threads do Sistema (Ms):** As Ms são threads do sistema operacional gerenciadas pelo Go. O runtime limita o número de Ms ativas para evitar sobrecarga (normalmente até `GOMAXPROCS`). O sistema operacional escalona as Ms nos núcleos da CPU, mas o Go otimiza a distribuição de trabalho entre elas.
+   - **Tratamento de Bloqueios:** Se uma goroutine bloqueia (ex: syscall), o P se desvincula temporariamente da M bloqueada e busca uma M ociosa (ou cria uma nova) para continuar executando outras goroutines. Isso mantém os Ps ativos mesmo durante operações bloqueantes.
+   - **Integração com o Escalonador do Sistema Operacional:** Embora o Go não controle diretamente qual núcleo executa uma thread, o uso eficiente de Ps e o work-stealing garantem que as Ms sejam distribuídas de forma a maximizar o paralelismo. O sistema operacional, por sua vez, atribui as Ms aos núcleos disponíveis. 
+   
+4. [Criando Goroutines](#criando-goroutines)  
    3.1. Sintaxe básica (`go func()`)  
    3.2. Funções nomeadas vs. funções anônimas  
-4. [Sincronização de Goroutines](#sincronizacao-de-goroutines)  
+5. [Sincronização de Goroutines](#sincronizacao-de-goroutines)  
    4.1. `sync.WaitGroup`  
    4.2. `sync.Mutex` e `sync.RWMutex`  
    4.3. `sync.Once`  
-5. [Comunicação com Channels](#comunicacao-com-channels)  
+6. [Comunicação com Channels](#comunicacao-com-channels)  
    5.1. Criando channels (`chan T`)  
    5.2. Envio e recebimento (`<-`)  
    5.3. Buffered vs. unbuffered channels  
    5.4. Fechando channels (`close`)  
-6. [`select` e multiplexação de canais](#select-e-multiplexacao-de-canais)  
+7. [`select` e multiplexação de canais](#select-e-multiplexacao-de-canais)  
    6.1. Caso padrão (`default`)  
    6.2. Timeout com `time.After`  
    6.3. `select` em loops  
-7. [Contextos e cancelamento](#contextos-e-cancelamento)  
+8. [Contextos e cancelamento](#contextos-e-cancelamento)  
    7.1. `context.Context`  
    7.2. Propagando cancelamento  
    7.3. Prazos (`WithTimeout`, `WithDeadline`)  
-8. [Modelos de concorrência comuns](#modelos-de-concorrencia-comuns)  
+9. [Modelos de concorrência comuns](#modelos-de-concorrencia-comuns)  
    8.1. Worker pool  
    8.2. Fan-in / Fan-out  
    8.3. Pipeline  
-9. [Tratamento de erros em Goroutines](#tratamento-de-erros-em-goroutines)  
+10. [Tratamento de erros em Goroutines](#tratamento-de-erros-em-goroutines)  
    9.1. `error` e `panic`  
    9.2. Recuperação (`recover`)  
    9.3. Padrões de comunicação de erro via channels  
-10. [Profiling e diagnóstico](#profiling-e-diagnostico)  
+11. [Profiling e diagnóstico](#profiling-e-diagnostico)  
     10.1. `pprof`  
     10.2. `runtime.NumGoroutine`  
     10.3. Detectando deadlocks  
-11. [Boas práticas e armadilhas comuns](#boas-praticas-e-armadilhas-comuns)  
+12. [Boas práticas e armadilhas comuns](#boas-praticas-e-armadilhas-comuns)  
     11.1. Evitar vazamentos de goroutine  
     11.2. Cautela com channels não lidos  
     11.3. Sincronização mínima necessária  
-12. [Comparação de workloads CPU-bound vs I/O-bound](#comparacao-de-workloads-cpu-bound-vs-io-bound)  
-13. [REFS](#refs)  
-14. [TO-DO / Conceitos avançados](#to-do--conceitos-avancados)  
+13. [Comparação de workloads CPU-bound vs I/O-bound](#comparacao-de-workloads-cpu-bound-vs-io-bound)  
+14. [REFS](#refs)  
+15. [TO-DO / Conceitos avançados](#to-do--conceitos-avancados)  
     - Pool de conexões  
     - Scheduler interno do Go  
     - Goroutines M:N
