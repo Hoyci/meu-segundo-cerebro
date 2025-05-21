@@ -50,9 +50,40 @@ E o schedule identifica que uma goroutine está pronta para execução através 
 
 * **Filas de prontas**: As goroutines são organizadas em filas locais (uma por processador lógico) e uma fila global. Quando uma goroutine é criada ou desbloqueada, ela é adicionada a uma dessas filas, sinalizando assim o scheduler da sua disponibilidade.
 
-**Tá. mas como o runtime sabe para qual núcleo do processador deve ser enviada a goroutine assim garantindo a utilização eficiente dos recursos da máquina?**
+**Tá, mas como o runtime sabe em qual núcleo do processador deve rodar a goroutine para garantir o uso eficiente dos recursos da máquina?**
 
-A distribuição de goroutines entre os núcleos do processador é feita indiretamente pelo scheduler do Go, que utiliza uma estratégia de agendamento **M:N** onde `M` goroutines são distribuídas em `N` threads do sistema operacional. Cada thread `M` é associada a um processador lógico `P`, que mantém uma fila local de goroutines prontas.
+A distribuição de _goroutines_ entre os núcleos do processador é feita indiretamente pelo scheduler do Go, que utiliza uma estratégia de agendamento **M:N** onde `M` goroutines são distribuídas em `N` threads do sistema operacional. Cada thread `M` é associada a um processador lógico `P`, que mantém uma fila local de goroutines prontas.
+
+```mermaid
+graph TD
+  subgraph Goroutines
+    G1[Goroutine 1]
+    G2[Goroutine 2]
+    G3[Goroutine 3]
+    G4[Goroutine 4]
+    G5[Goroutine 5]
+  end
+
+  subgraph Threads
+    T1[Thread 1]
+    T2[Thread 2]
+  end
+
+  subgraph Processors
+    P1[Processor 1]
+    P2[Processor 2]
+  end
+
+  G1 --> T1
+  G2 --> T2
+  G3 --> T1
+  G4 --> T2
+  G5 --> T1
+
+  T1 --> P1
+  T2 --> P2
+
+```
 
 * **Processadores Lógicos (Ps):** O número de Ps é definido por `GOMAXPROCS`. Cada P possui uma fila local de goroutines prontas e está associado a uma thread do sistema operacional (**M**). Os Ps são a unidade central de escalonamento.
 
