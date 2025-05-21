@@ -29,7 +29,7 @@ Os criadores do Go adotaram a filosofia do [*Communicating Sequential Processes*
 
 Como comentei na introdução, golang suporta a execução de tarefas de forma paralela ao distribuir as goroutines entre os núcos de CPU disponíveis. O quão paralelo a aplicação pode ser é configurável usando a função `runtime.GOMAXPROCS(n)`, que define o número máximo de threads do sistema operacional que podem executar código Go. Observação: o padrão geralmente é o número de núcleos da máquina que está execuando o código.
 
-Uma breve explicação sobre como funciona o runtime:  o runtime da linguagem possui um `scheduler` que basicamente é o resposável por distribuir as goroutines prontas para execução entre as threads do sistema operacional, que são destinadas a serem executadas nos núcleos da CPU do computador. Quando você define `runtime.GOMAXPROCS(n)` para um valor maior que 1, você está permitindo que o Go utilize múltiplo núcleos para executar as goroutines paralelamente.
+Uma breve explicação sobre como funciona o runtime:  o runtime da linguagem possui um `scheduler` que basicamente é o responsável por distribuir as goroutines prontas para execução entre as threads do sistema operacional, que são destinadas a serem executadas nos núcleos da CPU do computador. Quando você define `runtime.GOMAXPROCS(n)` para um valor maior que 1, você está permitindo que o Go utilize múltiplo núcleos para executar as goroutines paralelamente.
 
 Um coisa interessante a ser observar é que todas as instâncias de paralelismo são também formas de concorrência, pois se várias coisas estão acontecendo ao mesmo tempo, elas também estão sendo gerenciadas simultaneamente. No entanto, o inverso não é necessariamente verdadeiro; um programa concorrente pode não alcançar o paralelismo se estiver sendo executado em um processador com um único núcleo. Nesse caso, as tarefas seriam apenas intercaladas, simulando a simultaneidade, mas sem a execução paralela real.
 
@@ -37,7 +37,7 @@ Um coisa interessante a ser observar é que todas as instâncias de paralelismo 
 
 O runtime do Go gerencia o ciclo de vida das goroutines através de um scheduler que monitora seu estado em tempo real. As goroutines podem estar em três estados que são: 
 
-* **Runnable**: A goroutine está pronta para ser executada, mas ainda não está em nenhum thread.
+* **Runnable**: A goroutine está pronta para ser executada, mas ainda não está em nenhuma thread.
 * **Running**: A goroutine está sendo executada em uma thread do sistema.
 * **Blocked**: A goroutine está temporariamente parada, esperando por algum evento externo. Isso pode incluir esperar por uma operação de I/O (ex: ler um arquivo, fazer uma requisição de rede) esperar por um lock (mutex) ser liberado ou esperar por dados serem enviados ou recebidos através de um canal
 * **Terminated**: A goroutine completou sua execução ou foi finalizada devido à terminação da goroutine principal.
@@ -63,7 +63,12 @@ A distribuição de goroutines entre os núcleos do processador é feita indiret
 * **Tratamento de Bloqueios:** Se uma goroutine bloqueia (ex: syscall), o P se desvincula temporariamente da M bloqueada e busca uma M ociosa (ou cria uma nova) para continuar executando outras goroutines. Isso mantém os Ps ativos mesmo durante operações bloqueantes.
 
 * **Integração com o Escalonador do Sistema Operacional:** Embora o Go não controle diretamente qual núcleo executa uma thread, o uso eficiente de Ps e o work-stealing garantem que as Ms sejam distribuídas de forma a maximizar o paralelismo. O sistema operacional, por sua vez, atribui as Ms aos núcleos disponíveis.    
-## O que são Goroutines
+## Criando Goroutines
+Para criar uma goroutine, basta que você use a palavra reservada da linguagem `go` seguida por uma chamada de função.
+
+Por exemplo: você pode declarar uma goroutine usando `go printMessage("Hello from goroutine")` e isso irá executar a função `printMessage` de maneira concorrente do resto do código.
+
+
 
 1. [Criando Goroutines](#criando-goroutines)  
    3.1. Sintaxe básica (`go func()`)  
