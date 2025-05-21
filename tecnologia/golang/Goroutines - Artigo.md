@@ -10,7 +10,7 @@ Este repositório foi criado para ajudar desenvolvedores a entender e aplicar go
 
 Antes de adentrarmos no assunto de goroutines, é importante entendermos a diferença entre **concorrência** e **paralelismo**, haja vista que concorrência é um aspecto fundamental da linguagem  que permite que os desenvolvedores escrevam aplicações que realizam múltiplas tarefas concorrentemente.
 
-Concorrência e paralelismo são termos comumente usados para descrever a execução de múltiplas tarefas. Mas, apesar de às vezes serem confudidos como a mesma coisa, eles não são, pois representam formas diferentes de como as tarefas são gerenciadas e executadas.
+_**Concorrência** e **paralelismo**_ são termos comumente usados para descrever a execução de múltiplas tarefas. Mas, apesar de às vezes serem confudidos como a mesma coisa, eles não são, pois representam formas diferentes de como as tarefas são gerenciadas e executadas.
 
 **Concorrencia**: é a capacidade de um programar lidar com múltiplas tarefas aparentemente ao mesmo tempo, mesmo que a execução dependa da troca rápida entres as tarefas permitindo que o sistema progrida em diversas tarefas sem esperar que uma termine completamente antes de iniciar a outra. 
 
