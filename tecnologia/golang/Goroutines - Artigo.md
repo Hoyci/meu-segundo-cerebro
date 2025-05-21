@@ -67,7 +67,7 @@ A distribuição de goroutines entre os núcleos do processador é feita indiret
 
 Para criar uma goroutine, basta usar a palavra reservada da linguagem `go`, seguida por uma chamada de função.
 
-Por exemplo: você pode declarar uma _goroutine_ usando `go printMessage("Hello from goroutine")`, e isso irá executar a função `printMessage` de maneira concorrente ao restante do programa.
+Por exemplo: você pode declarar uma _goroutine_ usando `go printMessage("Hello from a goroutine")`, e isso irá executar a função `printMessage` de maneira concorrente ao restante do programa.
 
 Um exemplo básico de como criar uma goroutine:
 ```go
