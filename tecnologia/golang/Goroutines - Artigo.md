@@ -102,7 +102,7 @@ Para criar uma _goroutine_, basta usar a palavra reservada  `go`, seguida por um
 
 Por exemplo, você pode declarar uma _goroutine_ usando `go printMessage("Hello from a goroutine")`. Isso fará com que a função `printMessage` seja executada de maneira concorrente ao restante do código.
 
-Dê uma olhada num exemplo bem básico:
+Dê uma olhada nesse exemplo básico:
 ```go
 package main
 
