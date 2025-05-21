@@ -5,6 +5,7 @@ Este repositório foi criado para ajudar desenvolvedores a entender e aplicar go
 
 1. [Introdução](#introdução) 
 2. [O que são goroutines](#o-que-são-goroutines)
+3. [Criando goroutines](#criando-goroutines)
 ## Introdução
 
 Antes de adentrarmos no assunto de goroutines, é importante entendermos a diferença entre **[[concorrência]]** e **[[paralelismo]]**, haja vista que concorrência é um aspecto fundamental da linguagem **[[Golang]]** que permite que os desenvolvedores escreva aplicações que realizam múltiplas tarefas concorrentemente.
@@ -95,7 +96,7 @@ graph TD
 * **Tratamento de Bloqueios:** Se uma goroutine bloqueia (ex: syscall), o P se desvincula temporariamente da M bloqueada e busca uma M ociosa (ou cria uma nova) para continuar executando outras goroutines. Isso mantém os Ps ativos mesmo durante operações bloqueantes.
 
 * **Integração com o Escalonador do Sistema Operacional:** Embora o Go não controle diretamente qual núcleo executa uma thread, o uso eficiente de Ps e o work-stealing garantem que as Ms sejam distribuídas de forma a maximizar o paralelismo. O sistema operacional, por sua vez, atribui as Ms aos núcleos disponíveis.    
-## Criando Goroutines
+## Criando goroutines
 
 Para criar uma _goroutine_ em Go, basta usar a palavra reservada  `go`, seguida por uma chamada de função.
 
