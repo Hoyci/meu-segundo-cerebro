@@ -64,11 +64,73 @@ A distribuição de goroutines entre os núcleos do processador é feita indiret
 
 * **Integração com o Escalonador do Sistema Operacional:** Embora o Go não controle diretamente qual núcleo executa uma thread, o uso eficiente de Ps e o work-stealing garantem que as Ms sejam distribuídas de forma a maximizar o paralelismo. O sistema operacional, por sua vez, atribui as Ms aos núcleos disponíveis.    
 ## Criando Goroutines
-Para criar uma goroutine, basta que você use a palavra reservada da linguagem `go` seguida por uma chamada de função.
 
-Por exemplo: você pode declarar uma goroutine usando `go printMessage("Hello from goroutine")` e isso irá executar a função `printMessage` de maneira concorrente do resto do código.
+Para criar uma goroutine, basta usar a palavra reservada da linguagem `go`, seguida por uma chamada de função.
 
+Por exemplo: você pode declarar uma _goroutine_ usando `go printMessage("Hello from goroutine")`, e isso irá executar a função `printMessage` de maneira concorrente ao restante do programa.
 
+Um exemplo básico de como criar uma goroutine:
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func printMessage(msg string) {
+	fmt.Println(msg)
+}
+
+func main() {
+	fmt.Println("Hello world from the main function")
+	go printMessage("Hello from a goroutine")
+	fmt.Println("After create a goroutine")
+}
+```
+
+No código acima, a função `main` é a porta de entrada do programa. Ela começa imprimindo `Hello world from the main function`, cria a goroutine `printMessage` e, imediatamente, continua a execução, imprimindo `After create a goroutine`.
+
+Você pode rodar o snippet de código acima no [Go Playground](https://go.dev/play/) e irá perceber que o texto da goroutine não apareceu no terminal.
+
+**Oras, se eu criei a goroutine, por que a mensagem não foi impressa no terminal?**
+Isso acontece porque, quando você cria uma _goroutine_, ela é agendada (pelo `scheduler`) para ser executada pelo runtime do go, mas isso **não garante** que ela será executada imediatamente.
+Além disso, quando a função `main` termina, todo o programa é encerrado, independentemente de haver _goroutines_ aguardando para serem executadas ou em execução.
+
+**Ok, então como eu faço para que a goroutine seja, de fato, executada?**
+A maneira mais prática de garantir isso, nesse exemplo, é adicionando um `time.Sleep` ao final da função `main` para dar tempo suficiente para que o _runtime_ tenha tempo suficiente para agendar e executar a _goroutine_. 
+
+Adicionando a pausa, o código fica assim:
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func printMessage(msg string) {
+	fmt.Println(msg)
+}
+
+func main() {
+	fmt.Println("Hello world from the main function")
+	go printMessage("Hello from a goroutine")
+	fmt.Println("After create a goroutine")
+	time.Sleep(1 * time.Second)
+}
+```
+
+E o retorno esperado do código acima é: 
+```
+Hello world from main function
+After a goroutine 
+Hello from a goroutine
+```
+
+Agora sim o código funcionou como gostaríamos.
+Mas será que faz sentido ficar colocando `time.Sleep` dentro do seu código de produção?
+A resposta é: **não, não faz sentido.** E essa não é a abordagem que a linguagem nos oferece para lidar com esse problema.
 
 1. [Criando Goroutines](#criando-goroutines)  
    3.1. Sintaxe básica (`go func()`)  
