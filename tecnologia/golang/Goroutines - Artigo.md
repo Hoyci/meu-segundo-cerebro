@@ -54,7 +54,7 @@ E o schedule identifica que uma goroutine está pronta para execução através 
 
 **Tá, mas como o runtime sabe em qual núcleo do processador deve rodar a goroutine para garantir o uso eficiente dos recursos da máquina?**
 
-A distribuição de _goroutines_ entre os núcleos do processador é feita indiretamente pelo scheduler do Go, que utiliza uma estratégia de agendamento **M:N** onde `M` goroutines são distribuídas em `N` threads do sistema operacional. Cada thread `M` é associada a um processador lógico `P`, que mantém uma fila local de goroutines prontas.
+A distribuição de _goroutines_ entre os núcleos do processador é feita indiretamente pelo scheduler do Go, que utiliza uma estratégia de agendamento **M:N** onde `M` goroutines são distribuídas em `N` threads do sistema operacional. Cada thread `N` é associada a um processador lógico `P`, que mantém uma fila local de goroutines prontas.
 
 ```mermaid
 graph TD
