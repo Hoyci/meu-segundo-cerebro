@@ -98,7 +98,7 @@ graph TD
 * **Integração com o Escalonador do Sistema Operacional:** Embora o Go não controle diretamente qual núcleo executa uma thread, o uso eficiente de Ps e o work-stealing garantem que as Ms sejam distribuídas de forma a maximizar o paralelismo. O sistema operacional, por sua vez, atribui as Ms aos núcleos disponíveis.    
 ## Criando goroutines
 
-Para criar uma _goroutine_ em Go, basta usar a palavra reservada  `go`, seguida por uma chamada de função.
+Para criar uma _goroutine_, basta usar a palavra reservada  `go`, seguida por uma chamada de função.
 
 Por exemplo, você pode declarar uma _goroutine_ usando `go printMessage("Hello from a goroutine")`. Isso fará com que a função `printMessage` seja executada de maneira concorrente ao restante do código.
 
