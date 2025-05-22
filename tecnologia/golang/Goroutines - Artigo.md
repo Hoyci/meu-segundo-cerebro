@@ -428,7 +428,6 @@ P --> Q[Fim do programa]
 O --> Q
 ```
 
-O `sync.RWMutex` é um 
 2. [Sincronização de Goroutines](#sincronizacao-de-goroutines)  
    4.1. `sync.WaitGroup`  
    4.2. `sync.Mutex` e `sync.RWMutex`  
