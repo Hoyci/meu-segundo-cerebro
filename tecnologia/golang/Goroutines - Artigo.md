@@ -6,6 +6,7 @@ Este repositório foi criado para ajudar desenvolvedores a entender e aplicar go
 1. [Introdução](#introdução) 
 2. [O que são goroutines](#o-que-são-goroutines)
 3. [Criando goroutines](#criando-goroutines)
+4. [Sincronização de goroutines](#sincronização-de-goroutines)
 ## Introdução
 
 Antes de adentrarmos no assunto de goroutines, é importante entendermos a diferença entre **concorrência** e **paralelismo**, haja vista que concorrência é um aspecto fundamental da linguagem  que permite que os desenvolvedores escrevam aplicações que realizam múltiplas tarefas concorrentemente.
@@ -166,6 +167,69 @@ Agora sim, o código funcionou como o esperado.
 **Mas será que faz sentido ficar colocando `time.Sleep` dentro do seu código de produção?**
 A resposta é: **não, não faz sentido.** Essa é apenas uma solução didática e você não deve fazer isso em código de produção. 
 Em aplicações reais, o go oferece mecanismos mais apropriados para lidar com esse problema.
+
+## Sincronização de goroutines
+
+Como vimos anteriormente, não é interessante usar `time.Sleep` para fazer com que a goroutine seja executada. Se o tempo for muito curto, corre-se o risco da goroutine não ser executada. E se for muito longo, o programa ficará esperando desnecessariamente, desperdiçando tempo.
+
+Pensando nisso, o Go fornece uma biblioteca chamada `sync`, que possui ferramentas específicas para lidar com a sincronização entre goroutines de forma eficiente.
+
+### O `sync.WaitGroup`
+`
+O `sync.WaitGroup` é uma das ferramentas fornecidas pela biblioteca que permite que uma goroutine aguarda até que um conjunto de outras goroutines finalize sua execução. Basicamente, o que ele faz é manter um contador interno, que é incrementado quando uma nova goroutine é adicionada ao grupo e decrementado quando uma goroutine sinaliza que concluiu a tarefa.
+
+Os métodos que utilizamos para realizar essas ações são:
+* `Add(n)`: utilizado para incrementar o contador em `n`;
+* `Done()`: utilizado para decrementar o contador em 1;
+* `Wait()`: utilizado para bloquear a goroutine chamadora até que o contador chegue a zero, indicando que todas as goroutines adicionadas terminaram.
+
+Exemplo de uso do `sync.WaitGroup` (lembrando que você pode usar o [playground](https://go.dev/play/) para testar o código abaixo):
+```go
+package main
+
+import (
+    "fmt"
+    "sync"
+)
+
+func main() {
+    var wg sync.WaitGroup
+
+    for i := 1; i <= 3; i++ {
+        wg.Add(1) // Adiciona 1 ao WaitGroup
+        go func(id int) {
+            defer wg.Done() // Decrementa o contador ao terminar
+            fmt.Printf("Goroutine %d executando\n", id)
+        }(i)
+    }
+
+    wg.Wait() // Espera todas as goroutines terminarem
+    fmt.Println("Todas as goroutines concluíram")
+}
+```
+
+Resultado esperado:
+```
+Goroutine 3 executando
+Goroutine 1 executando
+Goroutine 2 executando
+Todas as goroutines concluíram
+```
+
+### O `sync.Mutex` e `sync.RWMutex`
+
+O `sync.Mutex` e o `sync.RWMutex` são duas outras ferramentas que fazem parte do pacote `sync` que realizam tarefas muito parecidas e que podem até serem confudidas. No entanto, elas são utilizadas em cenários diferentes.
+
+#### **O que é o `sync.Mutex` e para o que ele serve?**
+
+O `sync.Mutex` é um método que tem em si um princípio simples: uma vez que uma goroutine adquire um `sync.Mutex`, nenhuma outra goroutine pode adquirir o mesmo mutex até que ele seja liberado pela goroutine que o bloqueou.
+
+Os métodos que utilizamos para realizar essas ações são:
+* `Lock()`: utilizado para bloquear o mutex.
+* `Unlock()`: utilizado para desbloquear o mutex.
+  
+Fazendo uma **analogia** como o mundo real: o `sync.Mutex` funciona como a fechadura de um banheiro de bar. Quando uma pessoa entra e tranca a porta `Lock()`, ninguém mais pode entrar até que a pessoa destranque `Unlock()` e assim fique disponível para outra pessoa utilizar.
+
 
 2. [Sincronização de Goroutines](#sincronizacao-de-goroutines)  
    4.1. `sync.WaitGroup`  
