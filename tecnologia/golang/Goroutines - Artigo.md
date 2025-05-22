@@ -176,7 +176,7 @@ Pensando nisso, o Go fornece uma biblioteca chamada `sync`, que possui ferrament
 
 ### O `sync.WaitGroup`
 
-O `sync.WaitGroup` é uma das ferramentas fornecidas pela biblioteca que permite que uma goroutine aguarda até que um conjunto de outras goroutines finalize sua execução. Basicamente, o que ele faz é manter um contador interno, que é incrementado quando uma nova goroutine é adicionada ao grupo e decrementado quando uma goroutine sinaliza que concluiu a tarefa.
+O `sync.WaitGroup` é uma das ferramentas fornecidas pela biblioteca que permite que uma goroutine aguarde até que um conjunto de outras goroutines finalize sua execução. Basicamente, o que ele faz é manter um contador interno, que é incrementado quando uma nova goroutine é adicionada ao grupo e decrementado quando uma goroutine sinaliza que concluiu a tarefa.
 
 Os métodos que utilizamos para realizar essas ações são:
 * `Add(n)`: utilizado para incrementar o contador em `n`;
