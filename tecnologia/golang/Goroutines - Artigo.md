@@ -226,7 +226,7 @@ O `sync.Mutex` é um método que tem em si um princípio simples: uma vez que um
 Fazendo uma **analogia** como o mundo real: o `sync.Mutex` funciona como a fechadura de um banheiro de bar. Quando uma pessoa entra e tranca a porta, ninguém mais pode entrar até que a pessoa destranque e assim fique disponível para outra pessoa utilizar.
 
 Os métodos que utilizamos para realizar essas ações são:
-* `Lock()`: utilizado para bloquear o mutex.
+* `Lock()`: utilizado para bloquear o mutex / Trava a goroutine fazendo aguardar até ser desbloqueado se já estiver em uso.
 * `Unlock()`: utilizado para desbloquear o mutex.
 
 Exemplo de uso do `sync.Mutex` (lembrando que você pode usar o [playground](https://go.dev/play/) para testar o código abaixo):
@@ -247,13 +247,13 @@ func useBathroom(people int, wg *sync.WaitGroup) {
 
 	fmt.Printf("Pessoa %d está esperando para usar o banheiro.\n", people)
 
-	bathroom.Lock() // Tranca a porta (adquire o mutex)
+	bathroom.Lock() // Tranca a porta (adquire o mutex e impede que outras goroutines possam usá-lo e faz com que elas aguardem)
 	fmt.Printf("Pessoa %d entrou no banheiro.\n", people)
 
 	time.Sleep(2 * time.Second) // Simula o tempo fazendo pips
 
 	fmt.Printf("Pessoa %d saiu do banheiro.\n", people)
-	bathroom.Unlock() // Destranca a porta (libera o mutex)
+	bathroom.Unlock() // Destranca a porta (libera o mutex para que outra goroutine possa usá-lo)
 }
 
 func main() {
@@ -285,8 +285,14 @@ Pessoa 1 saiu do banheiro.
 Todas as pessoas usaram o banheiro.
 ```
 
-**O que é o `sync.RWMutex` e para o que ele serve?**
+#### **O que é o `sync.RWMutex` e para o que ele serve?**
 
+O `sync.RWMutex`, diferentemente do `sync.Mutex`, não impede que outras goroutines fiquem travadas porque ele implementa dois tipos de bloqueio, sendo um para leitura e outro para escrita.
+Isso significa que múltiplas goroutines podem acessar o Mutex e ler seu valor, mas devem aguardar quando o escritor estiver mantendo o lock. Dessa maneira, esse tipo de ferramenta é benéfico para estrutura de dados ou recursos que são lidos frequentemente, mas escritos com pouca frequência, assim aumentando significativamente o desemepenho pois permite o acesso de leitura concorrente enquanto ainda garante acesso exclusivo para operações de escrita. 
+
+Fazendo uma **analogia** com o mundo real: Imagine que você está trabalhando no escritório da sua empresa junto com seus pares e todos estão compartilhando a mesma rede de internet. Por algum motivo, alguém precisa desligar a rede de internet por 5 segundos (que seria o Lock de escrita) e depois todos podem voltar a utilizar normalmente.
+
+ 
 O `sync.RWMutex` é um 
 2. [Sincronização de Goroutines](#sincronizacao-de-goroutines)  
    4.1. `sync.WaitGroup`  
