@@ -404,27 +404,28 @@ Todas as tarefas foram concluídas.
 
 ```mermaid
 flowchart TD
-    A[Inicio do programa] --> B[Criacao das goroutines dos usuarios]
-    B --> C[Criacao da goroutine do Tecnico Joao]
-    
-    C --> D[Usuarios entram em loop de acoes]
-    D --> E[Usuario tenta RLock - leitura]
-    E --> F[Executa acao: email, Google ou tweetar]
-    F --> G[Usuario faz RUnlock]
-    G --> H{Mais acoes?}
-    H -->|Sim| D
-    H -->|Nao| I[Fim da rotina do usuario]
 
-    C --> J[Tecnico espera 2 segundos]
-    J --> K[Tecnico tenta Lock - escrita]
-    K --> L[Espera todos liberarem leitura]
-    L --> M[Executa reinicio da rede - 5s]
-    M --> N[Tecnico faz Unlock]
+A[Inicio do programa] --> C[Criacao das goroutines dos usuarios]
+A --> B[Criacao da goroutine do Tecnico Joao]
 
-    I --> O[WaitGroup Done]
-    N --> P[Usuarios continuam usando a rede]
-    P --> Q[Fim do programa]
-    O --> Q
+B --> J[Tecnico espera 2 segundos]
+J --> K[Tecnico tenta Lock - escrita]
+K --> L[Espera todos liberarem leitura]
+L --> M[Executa reinicio da rede - 5s]
+M --> N[Tecnico faz Unlock]
+
+C --> D[Usuario entram em loop de acoes]
+D --> E[Usuario tenta RLock - leitura]
+E --> F[Executa acao: email, Google ou tweetar]
+F --> G[Usuario faz RUnlock]
+G --> H[Mais acoes?]
+H -->|Sim| D
+H -->|Nao| I[Fim da rotina do usuario]
+I --> O[WaitGroup Done]
+
+N --> P[Usuarios continuam usando a rede]
+P --> Q[Fim do programa]
+O --> Q
 ```
 
 O `sync.RWMutex` é um 
