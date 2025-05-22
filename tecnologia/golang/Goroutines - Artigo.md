@@ -218,19 +218,76 @@ Todas as goroutines concluíram
 
 ### O `sync.Mutex` e `sync.RWMutex`
 
-O `sync.Mutex` e o `sync.RWMutex` são duas outras ferramentas que fazem parte do pacote `sync` que realizam tarefas muito parecidas e que podem até serem confudidas. No entanto, elas são utilizadas em cenários diferentes.
-
+O `sync.Mutex` e o `sync.RWMutex` são duas outras ferramentas que fazem parte do pacote `sync` que realizam tarefas muito parecidas e que podem até serem confudidas. No entanto, elas são utilizadas em contextos e cenários diferentes.
 #### **O que é o `sync.Mutex` e para o que ele serve?**
 
 O `sync.Mutex` é um método que tem em si um princípio simples: uma vez que uma goroutine adquire um `sync.Mutex`, nenhuma outra goroutine pode adquirir o mesmo mutex até que ele seja liberado pela goroutine que o bloqueou.
+  
+Fazendo uma **analogia** como o mundo real: o `sync.Mutex` funciona como a fechadura de um banheiro de bar. Quando uma pessoa entra e tranca a porta, ninguém mais pode entrar até que a pessoa destranque e assim fique disponível para outra pessoa utilizar.
 
 Os métodos que utilizamos para realizar essas ações são:
 * `Lock()`: utilizado para bloquear o mutex.
 * `Unlock()`: utilizado para desbloquear o mutex.
-  
-Fazendo uma **analogia** como o mundo real: o `sync.Mutex` funciona como a fechadura de um banheiro de bar. Quando uma pessoa entra e tranca a porta `Lock()`, ninguém mais pode entrar até que a pessoa destranque `Unlock()` e assim fique disponível para outra pessoa utilizar.
 
+Exemplo de uso do `sync.Mutex` (lembrando que você pode usar o [playground](https://go.dev/play/) para testar o código abaixo):
+```go
+package main
 
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+var bathroom sync.Mutex // O mutex representa a fechadura do banheiro
+
+// Função que simula uma pessoa usando o banheiro
+func useBathroom(people int, wg *sync.WaitGroup) {
+	defer wg.Done() // Sinaliza que a goroutine terminou ao final
+
+	fmt.Printf("Pessoa %d está esperando para usar o banheiro.\n", people)
+
+	bathroom.Lock() // Tranca a porta (adquire o mutex)
+	fmt.Printf("Pessoa %d entrou no banheiro.\n", people)
+
+	time.Sleep(2 * time.Second) // Simula o tempo fazendo pips
+
+	fmt.Printf("Pessoa %d saiu do banheiro.\n", people)
+	bathroom.Unlock() // Destranca a porta (libera o mutex)
+}
+
+func main() {
+	var wg sync.WaitGroup
+	numOfPeople := 3
+
+	wg.Add(numOfPeople)
+
+	for i := 1; i <= numOfPeople; i++ {
+		go useBathroom(i, &wg)
+	}
+
+	wg.Wait()
+	fmt.Println("Todas as pessoas usaram o banheiro.")
+}
+```
+
+Resultado esperado (PS: a ordem por ser diferente por causa do gerenciamento automático de goroutines do runtime):
+```
+Pessoa 3 está esperando para usar o banheiro.
+Pessoa 3 entrou no banheiro.
+Pessoa 2 está esperando para usar o banheiro.
+Pessoa 1 está esperando para usar o banheiro.
+Pessoa 3 saiu do banheiro.
+Pessoa 2 entrou no banheiro.
+Pessoa 2 saiu do banheiro.
+Pessoa 1 entrou no banheiro.
+Pessoa 1 saiu do banheiro.
+Todas as pessoas usaram o banheiro.
+```
+
+**O que é o `sync.RWMutex` e para o que ele serve?**
+
+O `sync.RWMutex` é um 
 2. [Sincronização de Goroutines](#sincronizacao-de-goroutines)  
    4.1. `sync.WaitGroup`  
    4.2. `sync.Mutex` e `sync.RWMutex`  
