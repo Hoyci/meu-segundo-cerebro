@@ -226,7 +226,7 @@ O `sync.Mutex` é um método que tem em si um princípio simples: uma vez que um
 Fazendo uma **analogia** como o mundo real: o `sync.Mutex` funciona como a fechadura de um banheiro de bar. Quando uma pessoa entra e tranca a porta, ninguém mais pode entrar até que a pessoa destranque e assim fique disponível para outra pessoa utilizar.
 
 Os métodos que utilizamos para realizar essas ações são:
-* `Lock()`: utilizado para bloquear o mutex
+* `Lock()`: utilizado para bloquear o mutex.
 * `Unlock()`: utilizado para desbloquear o mutex.
 
 Exemplo de uso do `sync.Mutex` (lembrando que você pode usar o [playground](https://go.dev/play/) para testar o código abaixo):
