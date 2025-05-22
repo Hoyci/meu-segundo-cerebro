@@ -287,7 +287,7 @@ Todas as pessoas usaram o banheiro.
 
 #### **O que é o `sync.RWMutex` e para o que ele serve?**
 
-O `sync.RWMutex`, diferentemente do `sync.Mutex`, não impede que outras goroutines fiquem travadas sempre que outra goroutine usa o Lock. Isso acontece porque ele oferece dois modos de bloqueio:
+O `sync.RWMutex`, diferentemente do `sync.Mutex`, não impede que outras goroutines fiquem travadas. Isso acontece porque ele oferece dois modos de bloqueio:
 * `Leitura (RLock/RUnlock)`: utilizado para que muitos leitores possam acessar o dado, desde que não haja nenhum escritor alterando o valor do dado.
 * `Escrita (Lock/Unlock)`: utilizado de modo exclusivo impedindo que nenhum leitor ou escritor acessem o dado até ser liberado.
 Essa abordagem é ideal para quando você tem estruturas de dados ou recursos que são lidos frequentemente, mas escritos com pouca frequência, assim aumentando significativamente o desempenho maximizando as leituras sem comprometer a segurança durante os processos de escrita.
