@@ -356,7 +356,6 @@ func main() {
 	wg.Wait()
 	fmt.Println("\nTodas as tarefas foram concluídas.")
 }
-
 ```
 
 Resultado esperado: 
@@ -402,7 +401,32 @@ Resultado esperado:
 [23:00:10] Carla - terminou de acessando o e-mail.
 Todas as tarefas foram concluídas.
 ```
- 
+
+```mermaid
+flowchart TD
+    A[Inicio do programa] --> B[Criacao das goroutines dos usuarios]
+    B --> C[Criacao da goroutine do Tecnico Joao]
+    
+    C --> D[Usuarios entram em loop de acoes]
+    D --> E[Usuario tenta RLock - leitura]
+    E --> F[Executa acao: email, Google ou tweetar]
+    F --> G[Usuario faz RUnlock]
+    G --> H{Mais acoes?}
+    H -->|Sim| D
+    H -->|Nao| I[Fim da rotina do usuario]
+
+    C --> J[Tecnico espera 2 segundos]
+    J --> K[Tecnico tenta Lock - escrita]
+    K --> L[Espera todos liberarem leitura]
+    L --> M[Executa reinicio da rede - 5s]
+    M --> N[Tecnico faz Unlock]
+
+    I --> O[WaitGroup Done]
+    N --> P[Usuarios continuam usando a rede]
+    P --> Q[Fim do programa]
+    O --> Q
+```
+
 O `sync.RWMutex` é um 
 2. [Sincronização de Goroutines](#sincronizacao-de-goroutines)  
    4.1. `sync.WaitGroup`  
