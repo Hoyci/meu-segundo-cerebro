@@ -287,17 +287,121 @@ Todas as pessoas usaram o banheiro.
 
 #### **O que é o `sync.RWMutex` e para o que ele serve?**
 
-O `sync.RWMutex`, diferentemente do `sync.Mutex`, não impede que outras goroutines fiquem travadas sempre que outra goroutine usa o trava o Lock. Isso acontece porque ele oferece dois modos de bloqueio:
+O `sync.RWMutex`, diferentemente do `sync.Mutex`, não impede que outras goroutines fiquem travadas sempre que outra goroutine usa o Lock. Isso acontece porque ele oferece dois modos de bloqueio:
 * `Leitura (RLock/RUnlock)`: utilizado para que muitos leitores possam acessar o dado, desde que não haja nenhum escritor alterando o valor do dado.
 * `Escrita (Lock/Unlock)`: utilizado de modo exclusivo impedindo que nenhum leitor ou escritor acessem o dado até ser liberado.
 Essa abordagem é ideal para quando você tem estruturas de dados ou recursos que são lidos frequentemente, mas escritos com pouca frequência, assim aumentando significativamente o desempenho maximizando as leituras sem comprometer a segurança durante os processos de escrita.
 
 Fazendo uma **analogia** com o mundo real: Imagine que você está trabalhando no escritório da sua empresa e todos os funcionários dependem da mesma rede de internet para realizar suas tarefas.
 Acessar o navegador para ler um email ou pesquisar no google são como acessos de leitura `(RLock/RUnlock)` e várias pessoas podem fazer isso ao mesmo tempo sem prejudicar umas às outras. 
-Reiniciar o roteador para aplicar uma configuração na rede, por exemplo, são como acessos de escrita `Lock/Unlock` que faz com que a rede fique totalmente indisponível até que o técnico (vulgo `Escritor`) termine e libere o acesso novamente.
+Reiniciar o roteador para aplicar uma configuração na rede, por exemplo, são como acessos de escrita `Lock/Unlock` que faz com que a rede fique totalmente indisponível. Por isso, o técnico primeiro precisa que todos terminem suas tarefas (imagina cortar aquele upload em 99%) para poder fazer efetuar a configuração e após isso o técnico libera o acesso novamente.
 
-Com `sync.Mutex`, toda vez que alguém quisesse usar a internet, todos os outros funcionários ficariam esperando. Agora com `sync.RWMutex`, a internet fica disponível para todos que querem apenas acessar, ficando indisponível somente quando é necessário fazer uma manuntenção.
+```go
+package main
 
+import (
+	"fmt"
+	"math/rand"
+	"sync"
+	"time"
+)
+
+var (
+	rwMutex sync.RWMutex
+	wg      sync.WaitGroup
+)
+
+func log(name string, message string) {
+	fmt.Printf("[%s] %s - %s\n", time.Now().Format("15:04:05"), name, message)
+}
+
+func userRoutine(name string) {
+	defer wg.Done()
+	for i := 0; i < 3; i++ {
+		rwMutex.RLock()
+		action := []string{"acessando o e-mail", "pesquisando no Google", "tweetando"}[rand.Intn(3)]
+		log(name, fmt.Sprintf("está %s...", action))
+		time.Sleep(time.Duration(rand.Intn(1000)+500) * time.Millisecond)
+		log(name, fmt.Sprintf("terminou de %s.", action))
+		rwMutex.RUnlock()
+
+		time.Sleep(time.Duration(rand.Intn(1000)) * time.Millisecond)
+	}
+}
+
+func restartNetwork(technician string) {
+	defer wg.Done()
+	time.Sleep(2 * time.Second)
+	log(technician, "precisa reiniciar a rede! Aguardando todos terminarem...")
+	rwMutex.Lock()
+	log(technician, "está reiniciando a rede. Todos os acessos foram bloqueados.")
+	time.Sleep(5 * time.Second)
+	log(technician, "terminou de reiniciar a rede. Acesso liberado.")
+	rwMutex.Unlock()
+}
+
+func main() {
+	rand.Seed(time.Now().UnixNano())
+
+	users := []string{"Alice", "Bruno", "Carla", "Diego", "Eduarda", "Felipe"}
+
+	for _, name := range users {
+		wg.Add(1)
+		go userRoutine(name)
+	}
+
+	wg.Add(1)
+	go restartNetwork("Técnico João")
+
+	wg.Wait()
+	fmt.Println("\nTodas as tarefas foram concluídas.")
+}
+
+```
+
+Resultado esperado: 
+```
+[23:00:00] Carla - está tweetando...
+[23:00:00] Alice - está acessando o e-mail...
+[23:00:00] Bruno - está acessando o e-mail...
+[23:00:00] Diego - está acessando o e-mail...
+[23:00:00] Eduarda - está acessando o e-mail...
+[23:00:00] Felipe - está acessando o e-mail...
+[23:00:00] Bruno - terminou de acessando o e-mail.
+[23:00:00] Alice - terminou de acessando o e-mail.
+[23:00:00] Alice - está tweetando...
+[23:00:01] Carla - terminou de tweetando.
+[23:00:01] Eduarda - terminou de acessando o e-mail.
+[23:00:01] Felipe - terminou de acessando o e-mail.
+[23:00:01] Diego - terminou de acessando o e-mail.
+[23:00:01] Bruno - está acessando o e-mail...
+[23:00:01] Felipe - está pesquisando no Google...
+[23:00:01] Diego - está acessando o e-mail...
+[23:00:01] Alice - terminou de tweetando.
+[23:00:02] Técnico João - precisa reiniciar a rede! Aguardando todos terminarem...
+[23:00:02] Felipe - terminou de pesquisando no Google.
+[23:00:02] Diego - terminou de acessando o e-mail.
+[23:00:02] Bruno - terminou de acessando o e-mail.
+[23:00:02] Técnico João - está reiniciando a rede. Todos os acessos foram bloqueados.
+[23:00:07] Técnico João - terminou de reiniciar a rede. Acesso liberado.
+[23:00:07] Felipe - está pesquisando no Google...
+[23:00:07] Eduarda - está pesquisando no Google...
+[23:00:07] Alice - está tweetando...
+[23:00:07] Carla - está pesquisando no Google...
+[23:00:07] Diego - está acessando o e-mail...
+[23:00:07] Bruno - está tweetando...
+[23:00:08] Bruno - terminou de tweetando.
+[23:00:08] Diego - terminou de acessando o e-mail.
+[23:00:08] Carla - terminou de pesquisando no Google.
+[23:00:08] Eduarda - terminou de pesquisando no Google.
+[23:00:08] Felipe - terminou de pesquisando no Google.
+[23:00:08] Eduarda - está pesquisando no Google...
+[23:00:08] Alice - terminou de tweetando.
+[23:00:09] Carla - está acessando o e-mail...
+[23:00:09] Eduarda - terminou de pesquisando no Google.
+[23:00:10] Carla - terminou de acessando o e-mail.
+Todas as tarefas foram concluídas.
+```
  
 O `sync.RWMutex` é um 
 2. [Sincronização de Goroutines](#sincronizacao-de-goroutines)  
