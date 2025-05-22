@@ -175,7 +175,7 @@ Como vimos anteriormente, não é interessante usar `time.Sleep` para fazer com 
 Pensando nisso, o Go fornece uma biblioteca chamada `sync`, que possui ferramentas específicas para lidar com a sincronização entre goroutines de forma eficiente.
 
 ### O `sync.WaitGroup`
-`
+
 O `sync.WaitGroup` é uma das ferramentas fornecidas pela biblioteca que permite que uma goroutine aguarda até que um conjunto de outras goroutines finalize sua execução. Basicamente, o que ele faz é manter um contador interno, que é incrementado quando uma nova goroutine é adicionada ao grupo e decrementado quando uma goroutine sinaliza que concluiu a tarefa.
 
 Os métodos que utilizamos para realizar essas ações são:
