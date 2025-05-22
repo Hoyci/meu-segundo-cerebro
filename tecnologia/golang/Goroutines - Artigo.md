@@ -358,7 +358,7 @@ func main() {
 }
 ```
 
-Resultado esperado: 
+Resultado esperado (PS: a ordem por ser diferente por causa do gerenciamento automático de goroutines do runtime): 
 ```
 [23:00:00] Carla - está tweetando...
 [23:00:00] Alice - está acessando o e-mail...
