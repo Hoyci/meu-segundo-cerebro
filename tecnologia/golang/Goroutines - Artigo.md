@@ -287,10 +287,16 @@ Todas as pessoas usaram o banheiro.
 
 #### **O que é o `sync.RWMutex` e para o que ele serve?**
 
-O `sync.RWMutex`, diferentemente do `sync.Mutex`, não impede que outras goroutines fiquem travadas porque ele implementa dois tipos de bloqueio, sendo um para leitura e outro para escrita.
-Isso significa que múltiplas goroutines podem acessar o Mutex e ler seu valor, mas devem aguardar quando o escritor estiver mantendo o lock. Dessa maneira, esse tipo de ferramenta é benéfico para estrutura de dados ou recursos que são lidos frequentemente, mas escritos com pouca frequência, assim aumentando significativamente o desemepenho pois permite o acesso de leitura concorrente enquanto ainda garante acesso exclusivo para operações de escrita. 
+O `sync.RWMutex`, diferentemente do `sync.Mutex`, não impede que outras goroutines fiquem travadas sempre que outra goroutine usa o trava o Lock. Isso acontece porque ele oferece dois modos de bloqueio:
+* `Leitura (RLock/RUnlock)`: utilizado para que muitos leitores possam acessar o dado, desde que não haja nenhum escritor alterando o valor do dado.
+* `Escrita (Lock/Unlock)`: utilizado de modo exclusivo impedindo que nenhum leitor ou escritor acessem o dado até ser liberado.
+Essa abordagem é ideal para quando você tem estruturas de dados ou recursos que são lidos frequentemente, mas escritos com pouca frequência, assim aumentando significativamente o desempenho maximizando as leituras sem comprometer a segurança durante os processos de escrita.
 
-Fazendo uma **analogia** com o mundo real: Imagine que você está trabalhando no escritório da sua empresa junto com seus pares e todos estão compartilhando a mesma rede de internet. Por algum motivo, alguém precisa desligar a rede de internet por 5 segundos (que seria o Lock de escrita) e depois todos podem voltar a utilizar normalmente.
+Fazendo uma **analogia** com o mundo real: Imagine que você está trabalhando no escritório da sua empresa e todos os funcionários dependem da mesma rede de internet para realizar suas tarefas.
+Acessar o navegador para ler um email ou pesquisar no google são como acessos de leitura `(RLock/RUnlock)` e várias pessoas podem fazer isso ao mesmo tempo sem prejudicar umas às outras. 
+Reiniciar o roteador para aplicar uma configuração na rede, por exemplo, são como acessos de escrita `Lock/Unlock` que faz com que a rede fique totalmente indisponível até que o técnico (vulgo `Escritor`) termine e libere o acesso novamente.
+
+Com `sync.Mutex`, toda vez que alguém quisesse usar a internet, todos os outros funcionários ficariam esperando. Agora com `sync.RWMutex`, a internet fica disponível para todos que querem apenas acessar, ficando indisponível somente quando é necessário fazer uma manuntenção.
 
  
 O `sync.RWMutex` é um 
