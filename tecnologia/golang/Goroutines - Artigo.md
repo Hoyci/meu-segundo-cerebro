@@ -427,6 +427,8 @@ N --> P[Usuarios continuam usando a rede]
 P --> Q[Fim do programa]
 O --> Q
 ```
+
+### O `sync.Once`
 #### **O que é o `sync.Once` e para o que ele serve?**
 O `sync.Once` é uma estrutura que, como diz o nome, garante que uma determinada função será executada apenas uma vez, mesmo que seja chamada múltiplas vezes por diferentes goroutines.
 Ela serve muito bem para situações que precisam acontecer uma única vez dentro do ciclo de vida da aplicação, como:
@@ -466,37 +468,60 @@ func main() {
 }
 ```
 
-2. [Sincronização de Goroutines](#sincronizacao-de-goroutines)  
-   4.1. `sync.WaitGroup`  
-   4.2. `sync.Mutex` e `sync.RWMutex`  
-   4.3. `sync.Once`  
-3. [Comunicação com Channels](#comunicacao-com-channels)  
+### O `sync.Cond`
+#### **O que é o `sync.Cond` e para o que ele serve?**
+
+### O `sync/atomic`
+
+#### **O que é `sync/atomic` e para o que ele serve?**
+
+2. [Comunicação com Channels](#comunicacao-com-channels)  
    5.1. Criando channels (`chan T`)  
    5.2. Envio e recebimento (`<-`)  
    5.3. Buffered vs. unbuffered channels  
    5.4. Fechando channels (`close`)  
-4. [`select` e multiplexação de canais](#select-e-multiplexacao-de-canais)  
+3. [`select` e multiplexação de canais](#select-e-multiplexacao-de-canais)  
    6.1. Caso padrão (`default`)  
    6.2. Timeout com `time.After`  
    6.3. `select` em loops  
-5. [Contextos e cancelamento](#contextos-e-cancelamento)  
+4. [Contextos e cancelamento](#contextos-e-cancelamento)  
    7.1. `context.Context`  
    7.2. Propagando cancelamento  
    7.3. Prazos (`WithTimeout`, `WithDeadline`)  
-6. [Tratamento de erros em Goroutines](#tratamento-de-erros-em-goroutines)  
-   6.1. `error` e `panic`  
-   6.2. Recuperação (`recover`)  
-   6.3. Padrões de comunicação de erro via channels  
-7.  [Profiling e diagnóstico](#profiling-e-diagnostico)  
-    7.1. `pprof`  
-    7.2. `runtime.NumGoroutine`  
-    7.3. Detectando deadlocks  
-8. [Boas práticas e armadilhas comuns](#boas-praticas-e-armadilhas-comuns)  
+5. [Padrões de concorrência](#padroes-de-concorrencia)
+   9.1. Worker pool  
+   9.2. Fan-in / Fan-out  
+   9.3. Pipeline 
+   9.4. Generator
+6. [Boas práticas e armadilhas comuns](#boas-praticas-e-armadilhas-comuns)  
 	8.1. Evitar vazamentos de goroutine  
     8.2. Cautela com channels não lidos  
     8.3. Sincronização mínima necessária  
-9. [Modelos de concorrência comuns](#modelos-de-concorrencia-comuns)  
-   9.1. Worker pool  
-   9.2. Fan-in / Fan-out  
-   9.3. Pipeline  
-10. [Comparação de workloads CPU-bound vs I/O-bound](#comparacao-de-workloads-cpu-bound-vs-io-bound)  
+7. [Tratamento de erros em Goroutines](#tratamento-de-erros-em-goroutines)  
+   6.1. `error` e `panic`  
+   6.2. Recuperação (`recover`)  
+   6.3. Padrões de comunicação de erro via channels  
+8.  [Profiling e diagnóstico](#profiling-e-diagnostico)  
+    7.1. `pprof`  
+    7.2. `runtime.NumGoroutine`  
+    7.3. Detectando deadlocks  
+9. [Evitando Race Conditions e Deadlocks](#evitando-race-conditions-e-deadlocks)
+   9.1. Entendendo Race Conditions
+   9.2. Técnicas para Prevenir Race Conditions
+   9.3. Entendendo Deadlocks
+   9.4. Técnicas para Prevenir Deadlocks
+   9.5. Usando o Go Race Detector
+10. [Prevenindo Vazamentos de Goroutines](#prevenindo-vazamento-de-goroutines)
+	10.1. Entendendo Vazamentos de Goroutines
+	10.2. Causas Comuns de Vazamentos de Goroutines
+	10.3. Técnicas de Detecção
+	10.4. Estratégias de Prevenção
+11. [Técnicas de Otimização de Desempenho](#tecnicas-de-otimizacao)
+	10.1. Profiling de Programas Go Concorrentes
+	10.2. Gerenciamento de Memória em Aplicações Concorrentes
+	10.3. Otimizando a Concorrência
+
+Referências: 
+[Documentação da linguagem](https://pkg.go.dev/)
+[Entendendo o sync.Once](https://victoriametrics.com/blog/go-sync-once/)
+
