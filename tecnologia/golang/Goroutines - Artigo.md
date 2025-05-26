@@ -287,7 +287,7 @@ Todas as pessoas usaram o banheiro.
 
 #### **O que é o `sync.RWMutex` e para o que ele serve?**
 
-O `sync.RWMutex`, diferentemente do `sync.Mutex`, não impede que outras goroutines fiquem travadas. Isso acontece porque ele oferece dois modos de bloqueio:
+O `sync.RWMutex`, diferentemente do `sync.Mutex`, é uma estrutura que não impede que outras goroutines fiquem travadas. Isso acontece porque ele oferece dois modos de bloqueio:
 * `Leitura (RLock/RUnlock)`: utilizado para que muitos leitores possam acessar o dado, desde que não haja nenhum escritor alterando o valor do dado.
 * `Escrita (Lock/Unlock)`: utilizado de modo exclusivo impedindo que nenhum leitor ou escritor acessem o dado até ser liberado.
 Essa abordagem é ideal para quando você tem estruturas de dados ou recursos que são lidos frequentemente, mas escritos com pouca frequência, assim aumentando significativamente o desempenho maximizando as leituras sem comprometer a segurança durante os processos de escrita.
@@ -427,6 +427,44 @@ N --> P[Usuarios continuam usando a rede]
 P --> Q[Fim do programa]
 O --> Q
 ```
+#### **O que é o `sync.Once` e para o que ele serve?**
+O `sync.Once` é uma estrutura que, como diz o nome, garante que uma determinada função será executada apenas uma vez, mesmo que seja chamada múltiplas vezes por diferentes goroutines.
+Ela serve muito bem para situações que precisam acontecer uma única vez dentro do ciclo de vida da aplicação, como:
+* Configurar a conexão com o banco de dados
+* Iniciar o logger
+* Configurar o sistema de métricas
+
+```go
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+var once sync.Once
+
+func main() {
+	loopQuantity := 10
+
+	var wg sync.WaitGroup // WaitGroup para aguardar a execução das goroutines
+	wg.Add(loopQuantity)  // Informando que serão 10 goroutines
+
+	for i := 0; i < loopQuantity; i++ {
+		go func(i int) {
+			defer wg.Done() // Marca essa goroutine como concluída no final
+
+			fmt.Printf("Goroutine %d está tentando chamar o método once.Do\n", i)
+
+			once.Do(func() {
+				fmt.Printf("A função está rodando vindo da goroutine %d\n", i)
+			})
+		}(i)
+	}
+
+	wg.Wait() // Aguarda todas as goroutines terminarem
+}
+```
 
 2. [Sincronização de Goroutines](#sincronizacao-de-goroutines)  
    4.1. `sync.WaitGroup`  
@@ -445,25 +483,20 @@ O --> Q
    7.1. `context.Context`  
    7.2. Propagando cancelamento  
    7.3. Prazos (`WithTimeout`, `WithDeadline`)  
-6. [Modelos de concorrência comuns](#modelos-de-concorrencia-comuns)  
-   8.1. Worker pool  
-   8.2. Fan-in / Fan-out  
-   8.3. Pipeline  
-7. [Tratamento de erros em Goroutines](#tratamento-de-erros-em-goroutines)  
-   9.1. `error` e `panic`  
-   9.2. Recuperação (`recover`)  
-   9.3. Padrões de comunicação de erro via channels  
-8. [Profiling e diagnóstico](#profiling-e-diagnostico)  
-    10.1. `pprof`  
-    10.2. `runtime.NumGoroutine`  
-    10.3. Detectando deadlocks  
-9. [Boas práticas e armadilhas comuns](#boas-praticas-e-armadilhas-comuns)  
-    11.1. Evitar vazamentos de goroutine  
-    11.2. Cautela com channels não lidos  
-    11.3. Sincronização mínima necessária  
+6. [Tratamento de erros em Goroutines](#tratamento-de-erros-em-goroutines)  
+   6.1. `error` e `panic`  
+   6.2. Recuperação (`recover`)  
+   6.3. Padrões de comunicação de erro via channels  
+7.  [Profiling e diagnóstico](#profiling-e-diagnostico)  
+    7.1. `pprof`  
+    7.2. `runtime.NumGoroutine`  
+    7.3. Detectando deadlocks  
+8. [Boas práticas e armadilhas comuns](#boas-praticas-e-armadilhas-comuns)  
+	8.1. Evitar vazamentos de goroutine  
+    8.2. Cautela com channels não lidos  
+    8.3. Sincronização mínima necessária  
+9. [Modelos de concorrência comuns](#modelos-de-concorrencia-comuns)  
+   9.1. Worker pool  
+   9.2. Fan-in / Fan-out  
+   9.3. Pipeline  
 10. [Comparação de workloads CPU-bound vs I/O-bound](#comparacao-de-workloads-cpu-bound-vs-io-bound)  
-11. [REFS](#refs)  
-12. [TO-DO / Conceitos avançados](#to-do--conceitos-avancados)  
-    - Pool de conexões  
-    - Scheduler interno do Go  
-    - Goroutines M:N
