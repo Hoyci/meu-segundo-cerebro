@@ -468,18 +468,30 @@ func main() {
 }
 ```
 
-### O `sync.Cond`
-#### **O que é o `sync.Cond` e para o que ele serve?**
+### Finalizando
 
+Ok, agora entendemos como as ferramentas do pacote `sync` nos ajudam a controlar a execução e o acesso a recursos compartilhados entre goroutines da seguintes maneiras: 
+* `sync.WaitGroup` permite esperar a conclusão de um grupo de goroutines. 
+* `sync.Mutex` e `sync.RWMutex` garantem o acesso seguro a dados compartilhados.
+* `sync.Once` assegura que uma inicialização seja feita apenas uma vez.
 
-### O `sync/atomic`
+Mas agora vamos imaginar o cenário onde estamos escrevendo uma aplicação que possui N goroutines processando dados e precisamos que uma goroutine específica receba os resultados desses processamentos para enviar para algum lugar (ex: banco de dados, websocket, fila).
+Utilizando apenas as ferramentas que vimos até agora, poderiamos usar uma variável compartilhada protegida por um Mutex. Mas isso poderia se tornar complexo, pouco manutenível e pouco escalável se tivermos várias goroutines alterando e consumindo essa variável, além de criar a necessidade de um controle de concorrência manual e potencialmente propenso a erros.
 
-#### **O que é `sync/atomic` e para o que ele serve?**
-
-
+Para solucionar esse problema de forma mais segura e idiomática, o Go tem uma ferramenta chamada `channels` que permite a comunicação e a sincronização entre goroutines de uma maneira mais direta. Na próxima seção, irei explicar um pouco melhor sobre essa ferramenta e como ela funciona através de exemplos e analogias.
 ## Channels
 #### O que são `channels`?
+`Channels` são um tipo de dado em Go que permite realizar comunicação e a sincronização entre goroutines. 
 
+A analogia clássica para entender esse conceito é de pensarmos em channels como se fossem tubulações pelas quais dados de um tipo específico podem trafegar entre uma goroutine e outra. Dessa maneira, os channels fornecem uma maneira segura e sincronizada para a comunicação, 
+abstraindo a complexidade do compartilhamento de variáveis em memória que poderia levar a problemas comuns em programação concorrente como `race conditions` e `deadlock` que acontecem quando não são gerenciados de maneira cuidadosa. 
+
+Os channels podem ser **bufferizados**, armazenando uma quantidade finita de valores, ou **não-bufferizados**, exigindo que um remetente e um receptor estejam prontos simultaneamente para a troca de dados.
+
+#### Como criamos channels?
+
+Os channels são criados usando a função built-in `make()`. Como citado anteriormente, os channels são tipados. Isso significa que precisamos especificar o tipo do dado que channel transportará.
+Para isso usamos `ch := make(chan int)` para criar um `unbuffered channel` para transmitir valores inteiros e `ch := make(chan int, 5)` para criar um `buffered channel` que tem capacidade para armazenar até cinco valores inteiros.
 #### Comunicação entre channels
 
 #### Diferença entre `buffered channels` e `unbuffered channels`
