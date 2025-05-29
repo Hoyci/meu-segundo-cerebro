@@ -480,58 +480,61 @@ Utilizando apenas as ferramentas que vimos até agora, poderiamos usar uma vari�
 
 Para solucionar esse problema de forma mais segura e idiomática, o Go tem uma ferramenta chamada `channels` que permite a comunicação e a sincronização entre goroutines de uma maneira mais direta. Na próxima seção, irei explicar um pouco melhor sobre essa ferramenta e como ela funciona através de exemplos e analogias.
 ## Channels
-#### O que são `channels`?
+### O que são `channels`?
+
 `Channels` são um tipo de dado em Go que permite realizar comunicação e a sincronização entre goroutines. 
 
-A analogia clássica para entender esse conceito é de pensarmos em channels como se fossem tubulações pelas quais dados de um tipo específico podem trafegar entre uma goroutine e outra. Dessa maneira, os channels fornecem uma maneira segura e sincronizada para a comunicação, 
-abstraindo a complexidade do compartilhamento de variáveis em memória que poderia levar a problemas comuns em programação concorrente como `race conditions` e `deadlock` que acontecem quando não são gerenciados de maneira cuidadosa. 
+A analogia clássica para entender esse conceito é de pensarmos em channels como se fossem tubulações pelas quais dados de um tipo específico podem trafegar entre uma goroutine e outra. Dessa maneira, os `channels` fornecem uma maneira segura e sincronizada para a comunicação, 
+abstraindo a complexidade do compartilhamento de variáveis em memória que poderia levar a problemas comuns em programação concorrente como _`race conditions`_ e _`deadlock`_ que acontecem quando não são gerenciados de maneira cuidadosa. 
+### Como criamos channels?
 
-Os channels podem ser **bufferizados**, armazenando uma quantidade finita de valores, ou **não-bufferizados**, exigindo que um remetente e um receptor estejam prontos simultaneamente para a troca de dados.
-
-#### Como criamos channels?
 Os channels são criados usando a função built-in `make()`. Como citado anteriormente, os channels são tipados. Isso significa que precisamos especificar o tipo do dado que channel transportará.
 Para isso usamos `ch := make(chan int)` para criar um `unbuffered channel` para transmitir valores inteiros e `ch := make(chan int, 5)` para criar um `buffered channel` que tem capacidade para armazenar até cinco valores inteiros.
-#### Comunicação entre channels (<-)
+### Comunicação entre channels (<-)
+
 A comunicação entre channels é feitada usando um operador (esquisito) que é uma seta "<-".
 Esse operador é utilizado tanto para enviar quanto para receber valores de um channel.
 
-Um exemplo básico de como podemos realizar a comunicação entre duas goroutines
+Um exemplo básico de como podemos realizar a comunicação entre duas goroutines:
 ```go
 package main
 
 import (
 	"fmt"
+	"sync"
 	"time"
 )
 
-func sender(ch chan string) {
+func sender(ch chan string, wg *sync.WaitGroup) {
+	defer wg.Done()
 	fmt.Println("Aguardando algum trabalho para enviar a mensagem")
 	time.Sleep(1 * time.Second)
 	ch <- "Olá do sender!"
 	fmt.Println("Sender enviou a mensagem.")
 }
 
-func receiver(ch chan string) {
+func receiver(ch chan string, wg *sync.WaitGroup) {
+	defer wg.Done()
 	msg := <-ch
 	fmt.Println("Receiver recebeu:", msg)
 }
 
 func main() {
+	var wg sync.WaitGroup
+	wg.Add(2)
 	messageChannel := make(chan string)
 
-	go sender(messageChannel)
-	go receiver(messageChannel)
+	go sender(messageChannel, &wg)
+	go receiver(messageChannel, &wg)
 
-	time.Sleep(2 * time.Second) // Espera para que as goroutines terminem
+	wg.Wait()
 }
-
 ```
-#### Direcionalidade de channels
+### Diferença entre `buffered channels` e `unbuffered channels`
 
+### Direcionalidade de channels
 
-#### Diferença entre `buffered channels` e `unbuffered channels`
-
-#### Fechando `channels`
+### Fechando `channels`
 
 
 2. [Comunicação com Channels](#comunicacao-com-channels)  
