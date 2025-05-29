@@ -489,10 +489,45 @@ abstraindo a complexidade do compartilhamento de variáveis em memória que pode
 Os channels podem ser **bufferizados**, armazenando uma quantidade finita de valores, ou **não-bufferizados**, exigindo que um remetente e um receptor estejam prontos simultaneamente para a troca de dados.
 
 #### Como criamos channels?
-
 Os channels são criados usando a função built-in `make()`. Como citado anteriormente, os channels são tipados. Isso significa que precisamos especificar o tipo do dado que channel transportará.
 Para isso usamos `ch := make(chan int)` para criar um `unbuffered channel` para transmitir valores inteiros e `ch := make(chan int, 5)` para criar um `buffered channel` que tem capacidade para armazenar até cinco valores inteiros.
-#### Comunicação entre channels
+#### Comunicação entre channels (<-)
+A comunicação entre channels é feitada usando um operador (esquisito) que é uma seta "<-".
+Esse operador é utilizado tanto para enviar quanto para receber valores de um channel.
+
+Um exemplo básico de como podemos realizar a comunicação entre duas goroutines
+```go
+package main
+
+import (
+	"fmt"
+	"time"
+)
+
+func sender(ch chan string) {
+	fmt.Println("Aguardando algum trabalho para enviar a mensagem")
+	time.Sleep(1 * time.Second)
+	ch <- "Olá do sender!"
+	fmt.Println("Sender enviou a mensagem.")
+}
+
+func receiver(ch chan string) {
+	msg := <-ch
+	fmt.Println("Receiver recebeu:", msg)
+}
+
+func main() {
+	messageChannel := make(chan string)
+
+	go sender(messageChannel)
+	go receiver(messageChannel)
+
+	time.Sleep(2 * time.Second) // Espera para que as goroutines terminem
+}
+
+```
+#### Direcionalidade de channels
+
 
 #### Diferença entre `buffered channels` e `unbuffered channels`
 
