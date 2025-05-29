@@ -218,7 +218,7 @@ Todas as goroutines concluíram
 
 ### O `sync.Mutex` e `sync.RWMutex`
 
-O `sync.Mutex` e o `sync.RWMutex` são duas outras ferramentas que fazem parte do pacote `sync` que realizam tarefas muito parecidas e que podem até serem confudidas. No entanto, elas são utilizadas em contextos e cenários diferentes.
+O `sync.Mutex` e o `sync.RWMutex` são duas outras duas ferramentas do pacote `sync` que realizam tarefas muito parecidas e que podem até serem confudidas. No entanto, elas são utilizadas em contextos e cenários diferentes.
 #### **O que é o `sync.Mutex` e para o que ele serve?**
 
 O `sync.Mutex` é um método que tem em si um princípio simples: uma vez que uma goroutine adquire um `sync.Mutex`, nenhuma outra goroutine pode adquirir o mesmo mutex até que ele seja liberado pela goroutine que o bloqueou.
@@ -418,7 +418,7 @@ C --> D[Usuario entram em loop de acoes]
 D --> E[Usuario tenta RLock - leitura]
 E --> F[Executa acao: email, Google ou tweetar]
 F --> G[Usuario faz RUnlock]
-G --> H[Mais acoes?]
+G --> H[Mais ações?]
 H -->|Sim| D
 H -->|Nao| I[Fim da rotina do usuario]
 I --> O[WaitGroup Done]
@@ -471,57 +471,70 @@ func main() {
 ### O `sync.Cond`
 #### **O que é o `sync.Cond` e para o que ele serve?**
 
+
 ### O `sync/atomic`
 
 #### **O que é `sync/atomic` e para o que ele serve?**
 
+
+## Channels
+#### O que são `channels`?
+
+#### Comunicação entre channels
+
+#### Diferença entre `buffered channels` e `unbuffered channels`
+
+#### Fechando `channels`
+
+
 2. [Comunicação com Channels](#comunicacao-com-channels)  
-   5.1. Criando channels (`chan T`)  
-   5.2. Envio e recebimento (`<-`)  
-   5.3. Buffered vs. unbuffered channels  
-   5.4. Fechando channels (`close`)  
+5.1. Criando channels (`chan T`)  
+5.2. Envio e recebimento (`<-`)  
+5.3. Buffered vs. unbuffered channels  
+5.4. Fechando channels (`close`)  
 3. [`select` e multiplexação de canais](#select-e-multiplexacao-de-canais)  
-   6.1. Caso padrão (`default`)  
-   6.2. Timeout com `time.After`  
-   6.3. `select` em loops  
+6.1. Caso padrão (`default`)  
+6.2. Timeout com `time.After`  
+6.3. `select` em loops  
 4. [Contextos e cancelamento](#contextos-e-cancelamento)  
-   7.1. `context.Context`  
-   7.2. Propagando cancelamento  
-   7.3. Prazos (`WithTimeout`, `WithDeadline`)  
+7.1. `context.Context`  
+7.2. Propagando cancelamento  
+7.3. Prazos (`WithTimeout`, `WithDeadline`)  
 5. [Padrões de concorrência](#padroes-de-concorrencia)
-   9.1. Worker pool  
-   9.2. Fan-in / Fan-out  
-   9.3. Pipeline 
-   9.4. Generator
+9.1. Worker pool  
+9.2. Fan-in / Fan-out  
+9.3. Pipeline 
+9.4. Generator
 6. [Boas práticas e armadilhas comuns](#boas-praticas-e-armadilhas-comuns)  
-	8.1. Evitar vazamentos de goroutine  
-    8.2. Cautela com channels não lidos  
-    8.3. Sincronização mínima necessária  
+8.1. Evitar vazamentos de goroutine  
+8.2. Cautela com channels não lidos  
+8.3. Sincronização mínima necessária  
 7. [Tratamento de erros em Goroutines](#tratamento-de-erros-em-goroutines)  
-   6.1. `error` e `panic`  
-   6.2. Recuperação (`recover`)  
-   6.3. Padrões de comunicação de erro via channels  
+6.1. `error` e `panic`  
+6.2. Recuperação (`recover`)  
+6.3. Padrões de comunicação de erro via channels  
 8.  [Profiling e diagnóstico](#profiling-e-diagnostico)  
-    7.1. `pprof`  
-    7.2. `runtime.NumGoroutine`  
-    7.3. Detectando deadlocks  
+7.1. `pprof`  
+7.2. `runtime.NumGoroutine`  
+7.3. Detectando deadlocks  
 9. [Evitando Race Conditions e Deadlocks](#evitando-race-conditions-e-deadlocks)
-   9.1. Entendendo Race Conditions
-   9.2. Técnicas para Prevenir Race Conditions
-   9.3. Entendendo Deadlocks
-   9.4. Técnicas para Prevenir Deadlocks
-   9.5. Usando o Go Race Detector
+9.1. Entendendo Race Conditions
+9.2. Técnicas para Prevenir Race Conditions
+9.3. Entendendo Deadlocks
+9.4. Técnicas para Prevenir Deadlocks
+9.5. Usando o Go Race Detector
 10. [Prevenindo Vazamentos de Goroutines](#prevenindo-vazamento-de-goroutines)
-	10.1. Entendendo Vazamentos de Goroutines
-	10.2. Causas Comuns de Vazamentos de Goroutines
-	10.3. Técnicas de Detecção
-	10.4. Estratégias de Prevenção
+10.1. Entendendo Vazamentos de Goroutines
+10.2. Causas Comuns de Vazamentos de Goroutines
+10.3. Técnicas de Detecção
+10.4. Estratégias de Prevenção
 11. [Técnicas de Otimização de Desempenho](#tecnicas-de-otimizacao)
-	10.1. Profiling de Programas Go Concorrentes
-	10.2. Gerenciamento de Memória em Aplicações Concorrentes
-	10.3. Otimizando a Concorrência
+10.1. Profiling de Programas Go Concorrentes
+10.2. Gerenciamento de Memória em Aplicações Concorrentes
+10.3. Otimizando a Concorrência
 
 Referências: 
 [Documentação da linguagem](https://pkg.go.dev/)
 [Entendendo o sync.Once](https://victoriametrics.com/blog/go-sync-once/)
+
 
