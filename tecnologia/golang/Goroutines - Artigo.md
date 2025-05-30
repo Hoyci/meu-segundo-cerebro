@@ -510,7 +510,7 @@ func sender(ch chan string, wg *sync.WaitGroup) {
 	fmt.Println("Sender: Preparando mensagem...")
 	time.Sleep(2 * time.Second)
 
-	ch <- "Olá receiver! (Unbuffered)"
+	ch <- "Olá receiver!"
 	fmt.Println("Sender: Mensagem entregue!")
 }
 
@@ -533,7 +533,14 @@ func main() {
 
 	wg.Wait()
 }
+```
 
+Resultado esperado:
+```go
+Receiver: Pronto para receber!
+Sender: Preparando mensagem...
+Sender: Mensagem entregue!
+Receiver: Olá receiver!
 ```
 ### Diferença entre `unbuffered channels` e `buffered channels`
 #### `Unbuffered Channels` (Canais sem buffer)
