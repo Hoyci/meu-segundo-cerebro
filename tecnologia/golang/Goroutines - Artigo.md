@@ -539,6 +539,8 @@ func main() {
 #### `Unbuffered Channels` (Canais sem buffer)
 
 `Unbuffered Channels` são canais de comunicação síncrona que funcionam como um ponto de encontro entre goroutines. Esse canais não possuem a capacidade de armazenar dados, isso significa que quando uma goroutine tenta enviar um valor, ela **trava** a execução até que outra goroutine esteja pronta para receber o valor. O inverso também acontece, ou seja, se uma goroutine tenta receber um valor, ela ficará bloqueada até que outra goroutine envie um valor nesse canal.
+
+Podemos utilizar o código acima para exemplificar um canal sem buffer
 #### `Buffered Channels` (Canais com buffer)
 
 `Buffered Channels` são canais que permitem comunicação de forma **assíncrona** entre goroutines e podem **armazenar** uma quantidade específica de valores. Nesse caso, quando uma goroutine envia um valor, ela não trava imediatamente porque o valor é armazenado no buffer do canal. No entanto, precisamos pensar em dois cenários: 
@@ -546,6 +548,83 @@ func main() {
 	Se o buffer estiver cheio, a goroutine que envia ficará travada até que uma goroutine consuma um valor do buffer.
 * **O que acontece se o buffer estiver vazio?**
 	Se o buffer estiver vazio, a goroutine que recebe ficará travada até que uma goroutine envie um novo valor para o cannal.
+
+Exemplo de canal com buffer:
+```go
+package main
+
+import (
+	"fmt"
+	"sync"
+	"time"
+)
+
+func sender(ch chan string, wg *sync.WaitGroup) {
+	defer wg.Done()
+	fmt.Println("[Sender] Iniciando envio de 4 mensagens (buffer=2)")
+
+	messages := []string{
+		"Mensagem 1",
+		"Mensagem 2",
+		"Mensagem 3",
+		"Mensagem 4",
+	}
+
+	for _, msg := range messages {
+		ch <- msg
+		fmt.Printf("[Sender] Enviando: '%s'\n", msg)
+		time.Sleep(500 * time.Millisecond)
+	}
+}
+
+func receiver(ch chan string, wg *sync.WaitGroup) {
+	defer wg.Done()
+
+	time.Sleep(1000 * time.Millisecond)
+
+	fmt.Println("\n[Receiver] Iniciando processamento")
+	for i := 0; i < 4; i++ {
+		fmt.Printf("[Receiver] Buffer agora: %d/%d\n", len(ch), cap(ch))
+		msg := <-ch
+		fmt.Printf("[Receiver] PROCESSANDO: '%s'\n", msg)
+		time.Sleep(1500 * time.Millisecond)
+	}
+}
+
+func main() {
+	var wg sync.WaitGroup
+	wg.Add(2)
+
+	ch := make(chan string, 2)
+
+	go sender(ch, &wg)
+	go receiver(ch, &wg)
+
+	wg.Wait()
+}
+
+```
+O resultado esperado:
+```go
+[Sender] Iniciando envio de 4 mensagens (buffer=2)
+[Sender] Enviando: 'Mensagem 1'
+[Sender] Enviando: 'Mensagem 2'
+
+[Receiver] Iniciando processamento
+[Receiver] Buffer agora: 2/2
+[Receiver] PROCESSANDO: 'Mensagem 1'
+[Sender] Enviando: 'Mensagem 3'
+[Receiver] Buffer agora: 2/2
+[Receiver] PROCESSANDO: 'Mensagem 2'
+[Sender] Enviando: 'Mensagem 4'
+[Receiver] Buffer agora: 2/2
+[Receiver] PROCESSANDO: 'Mensagem 3'
+[Receiver] Buffer agora: 1/2
+[Receiver] PROCESSANDO: 'Mensagem 4'
+```
+
+Percebemos, então, que apenas 2 das 4 mensagens foram enviadas inicialmente porque o buffer do canal é de apenas 2. Assim que enviamos as duas primeiras mensagens, o canal fica cheio e precisa que alguma goroutine consuma um valor para liberar espaço. Só então o _`sender`_ consegue enviar uma nova mensagem para o canal.
+
 ### Direcionalidade de channels
 
 ### Fechando `channels`
