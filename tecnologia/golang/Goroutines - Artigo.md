@@ -479,18 +479,17 @@ Mas agora vamos imaginar o cenário onde estamos escrevendo uma aplicação que 
 Utilizando apenas as ferramentas que vimos até agora, poderiamos usar uma variável compartilhada protegida por um Mutex. Mas isso poderia se tornar complexo, pouco manutenível e pouco escalável se tivermos várias goroutines alterando e consumindo essa variável, além de criar a necessidade de um controle de concorrência manual e potencialmente propenso a erros.
 
 Para solucionar esse problema de forma mais segura e idiomática, o Go tem uma ferramenta chamada `channels` que permite a comunicação e a sincronização entre goroutines de uma maneira mais direta. Na próxima seção, irei explicar um pouco melhor sobre essa ferramenta e como ela funciona através de exemplos e analogias.
-## Channels
-### O que são `channels`?
+## O que são `channels`?
 
 `Channels` são um tipo de dado em Go que permite realizar comunicação e a sincronização entre goroutines. 
 
 A analogia clássica para entender esse conceito é de pensarmos em channels como se fossem tubulações pelas quais dados de um tipo específico podem trafegar entre uma goroutine e outra. Dessa maneira, os `channels` fornecem uma maneira segura e sincronizada para a comunicação, 
 abstraindo a complexidade do compartilhamento de variáveis em memória que poderia levar a problemas comuns em programação concorrente como _`race conditions`_ e _`deadlock`_ que acontecem quando não são gerenciados de maneira cuidadosa. 
-### Como criamos channels?
+## Como criamos channels?
 
 Os channels são criados usando a função built-in `make()`. Como citado anteriormente, os channels são tipados. Isso significa que precisamos especificar o tipo do dado que channel transportará.
 Para isso usamos `ch := make(chan int)` para criar um `unbuffered channel` para transmitir valores inteiros e `ch := make(chan int, 5)` para criar um `buffered channel` que tem capacidade para armazenar até cinco valores inteiros.
-### Comunicação entre channels (<-)
+## Comunicação entre channels (<-)
 
 A comunicação entre channels é feitada usando um operador (esquisito) que é uma seta "<-".
 Esse operador é utilizado tanto para enviar quanto para receber valores de um channel.
@@ -542,7 +541,7 @@ Sender: Preparando mensagem...
 Sender: Mensagem entregue!
 Receiver: Olá receiver!
 ```
-### Diferença entre `unbuffered channels` e `buffered channels`
+## Diferença entre `unbuffered channels` e `buffered channels`
 #### `Unbuffered Channels` (Canais sem buffer)
 
 `Unbuffered Channels` são canais de comunicação síncrona que funcionam como um ponto de encontro entre goroutines. Esse canais não possuem a capacidade de armazenar dados, isso significa que quando uma goroutine tenta enviar um valor, ela **trava** a execução até que outra goroutine esteja pronta para receber o valor. O inverso também acontece, ou seja, se uma goroutine tenta receber um valor, ela ficará bloqueada até que outra goroutine envie um valor nesse canal.
@@ -631,7 +630,7 @@ O resultado esperado:
 ```
 
 Percebemos, então, que apenas 2 das 4 mensagens foram enviadas inicialmente porque o buffer do canal é de apenas 2. Assim que enviamos as duas primeiras mensagens, o canal fica cheio e precisa que alguma goroutine consuma um valor para liberar espaço. Só então o _`sender`_ consegue enviar uma nova mensagem para o canal.
-### Direcionalidade de channels
+## Direcionalidade de channels
 
 Em Go, a direcionalidade de channels permite restringir seu uso a três modos distintos: apenas para envio, apenas para recebimento ou para ambas as operações. A sintaxe para declarar cada uma dessas direcionalidades é a seguinte:
 
@@ -670,20 +669,21 @@ func main() {
 ```
 
 
-### Fechando `channels`
+## Fechamento de `channels`
 
-Em Go, o fechamento de um channel é um mecanismo importante para sinalizar aos receptores que não haverá mais valores sendo enviados por aquele channel. Essa ação é realizada pelo remetente do channel através da função built-in `close()`.
+Para concluir o assunto, preciso falar sobre fechamento de channels. 
+Fechamento de channels é um mecanismo para sinalizar os receptores que não haverá mais valores sendo enviados por um determinado channel. 
 
 A sintaxe para fechar um channel é simples:
 
 ```go
-close(meuChannel)
+close(myChannel)
 ```
 
 Uma vez que um channel é fechado, as seguintes características se aplicam:
 
-- **Envio em um channel fechado causa `panic`:** Tentar enviar um valor para um channel que já foi fechado resultará em um `panic` na goroutine que tentar realizar a operação. Portanto, é crucial garantir que apenas o remetente (ou um único responsável) feche o channel e que as tentativas de envio ocorram antes do fechamento.
-- **Recepção em um channel fechado retorna o valor zero e `false`:** Quando um receptor tenta receber um valor de um channel fechado, a operação não bloqueia. Em vez disso, ela retorna o valor zero do tipo do channel (por exemplo, `0` para `int`, `""` para `string`, `nil` para ponteiros e interfaces) e um segundo valor booleano, que será `false`. Esse segundo valor serve como um indicador de que o channel foi fechado e não há mais valores para receber.
+- **Envio em um channel fechado causa `panic`:** Tentar enviar um valor para um channel que já foi fechado causará `panic` na goroutine que tentar realizar esta ação. Sendo assim, é extremamente importante garantir que apenas o remetente feche o channel e que as tentativas de envio ocorram antes do fechamento.
+- **Recepção em um channel fechado retorna o valor zero e `false`:** Quando um receptor tenta receber um valor de um channel fechado, a operação não bloqueia. Em vez disso, ela retorna o valor zero do tipo do channel (por exemplo, `0` para `int`, `""` para `string`, `nil` para ponteiros e interfaces) e um segundo valor do tipo `bool`, que será `false`. Esse segundo valor serve como um indicador de que o channel foi fechado e não há mais valores para receber.
 - **Loop `range` em channels fechados termina:** Um loop `range` que itera sobre um channel continuará recebendo valores até que o channel seja fechado. Após o fechamento e o recebimento de todos os valores enfileirados, o loop `range` terminará graciosamente. Essa é uma forma idiomática de consumir todos os valores de um channel.
 
 **Cenários de Uso Crucial para Fechar Channels:**
@@ -691,48 +691,120 @@ Uma vez que um channel é fechado, as seguintes características se aplicam:
 - **Produtores Finitos:** Quando uma goroutine produtora sabe que enviará um número finito de valores e depois terminará, fechar o channel sinaliza essa conclusão para os consumidores. O exemplo do `producer` na discussão sobre direcionalidade é um bom caso onde o `close(dataOut)` é essencial.
 - **Comunicação de Término de Tarefa:** Em pipelines de processamento concorrente, fechar um channel pode indicar que um estágio específico do pipeline concluiu seu trabalho e não enviará mais resultados para o próximo estágio.
 
-2. [Comunicação com Channels](#comunicacao-com-channels)  
-5.1. Criando channels (`chan T`)  
-5.2. Envio e recebimento (`<-`)  
-5.3. Buffered vs. unbuffered channels  
-5.4. Fechando channels (`close`)  
-3. [`select` e multiplexação de canais](#select-e-multiplexacao-de-canais)  
+## Select e multiplexação de canais
+
+O  `select` é uma ferramenta utilizada para fluxo de controle que permite que uma goroutine espere por duas ou mais operações de channel. Essa ferramenta funciona de maneira muito parecida com o `switch` mas com a pequena diferença que ela é utilizada especificamente para channels em vez de variáveis e expressões.
+
+Como o `select` trabalha de maneira que ele bloqueia a execução até que uma de seus `case` esteja pronto para ser executado. Deve-se levar em consideração que caso múltiplos `case` ficarem prontos ao mesmo tempo, um deles será escolhido de maneira aleatória para que seja executado. 
+
+Exemplo para exibir a sintaxe e o uso do select
+
+
+```go
+package main
+
+import (
+	"fmt"
+	"math/rand"
+	"sync"
+	"time"
+)
+
+func call(i int, wg *sync.WaitGroup, calls chan int) {
+	defer wg.Done()
+	sleepTime := time.Duration(rand.Intn(3)) * time.Second
+	time.Sleep(sleepTime)
+	fmt.Printf("Telefone %d começou a tocar após %s\n", i, sleepTime)
+	calls <- i // Envia o número do telefone para o canal de chamadas
+}
+
+func answerCall(i int) {
+	fmt.Printf("Ligação do telefone %d foi atendida\n", i)
+}
+
+func doOtherTask() {
+	fmt.Println("Nenhum telefone tocando, fazendo outra tarefa...")
+	time.Sleep(1 * time.Second)
+}
+
+func main() {
+	var wg sync.WaitGroup
+	numOfCalls := 5
+	calls := make(chan int)
+	done := make(chan bool) // Canal para sinalizar que todas as goroutines de chamada terminaram
+
+	wg.Add(numOfCalls)
+
+	for i := 1; i <= numOfCalls; i++ {
+		go call(i, &wg, calls)
+	}
+
+	// Goroutine para esperar que todas as chamadas terminem e fechar o canal 'calls'
+	go func() {
+		wg.Wait()
+		close(calls)
+		close(done) // Sinaliza que não haverá mais chamadas
+	}()
+
+	// Loop 'select' para atender as chamadas assim que chegarem
+	for {
+		select {
+		case callID := <-calls:
+			answerCall(callID)
+		default:
+			// Executado se o canal 'calls' estiver vazio
+			select {
+			case <-done:
+				// Todas as chamadas foram feitas e atendidas (ou ignoradas)
+				fmt.Println("Todas as chamadas foram processadas.")
+				return
+			default:
+				// Se não há chamadas pendentes e nem sinal de conclusão, faz outra tarefa
+				doOtherTask()
+			}
+		}
+	}
+	}
+```
+
+## Coisas para escrever
+2. [`select` e multiplexação de canais](#select-e-multiplexacao-de-canais)  
 6.1. Caso padrão (`default`)  
 6.2. Timeout com `time.After`  
 6.3. `select` em loops  
-4. [Contextos e cancelamento](#contextos-e-cancelamento)  
+3. [Contextos e cancelamento](#contextos-e-cancelamento)  
 7.1. `context.Context`  
 7.2. Propagando cancelamento  
 7.3. Prazos (`WithTimeout`, `WithDeadline`)  
-5. [Padrões de concorrência](#padroes-de-concorrencia)
+4. [Padrões de concorrência](#padroes-de-concorrencia)
 9.1. Worker pool  
 9.2. Fan-in / Fan-out  
 9.3. Pipeline 
 9.4. Generator
-6. [Boas práticas e armadilhas comuns](#boas-praticas-e-armadilhas-comuns)  
+5. [Boas práticas e armadilhas comuns](#boas-praticas-e-armadilhas-comuns)  
 8.1. Evitar vazamentos de goroutine  
 8.2. Cautela com channels não lidos  
 8.3. Sincronização mínima necessária  
-7. [Tratamento de erros em Goroutines](#tratamento-de-erros-em-goroutines)  
+6. [Tratamento de erros em Goroutines](#tratamento-de-erros-em-goroutines)  
 6.1. `error` e `panic`  
 6.2. Recuperação (`recover`)  
 6.3. Padrões de comunicação de erro via channels  
-8.  [Profiling e diagnóstico](#profiling-e-diagnostico)  
+7.  [Profiling e diagnóstico](#profiling-e-diagnostico)  
 7.1. `pprof`  
 7.2. `runtime.NumGoroutine`  
 7.3. Detectando deadlocks  
-9. [Evitando Race Conditions e Deadlocks](#evitando-race-conditions-e-deadlocks)
+8. [Evitando Race Conditions e Deadlocks](#evitando-race-conditions-e-deadlocks)
 9.1. Entendendo Race Conditions
 9.2. Técnicas para Prevenir Race Conditions
 9.3. Entendendo Deadlocks
 9.4. Técnicas para Prevenir Deadlocks
 9.5. Usando o Go Race Detector
-10. [Prevenindo Vazamentos de Goroutines](#prevenindo-vazamento-de-goroutines)
+9. [Prevenindo Vazamentos de Goroutines](#prevenindo-vazamento-de-goroutines)
 10.1. Entendendo Vazamentos de Goroutines
 10.2. Causas Comuns de Vazamentos de Goroutines
 10.3. Técnicas de Detecção
 10.4. Estratégias de Prevenção
-11. [Técnicas de Otimização de Desempenho](#tecnicas-de-otimizacao)
+10. [Técnicas de Otimização de Desempenho](#tecnicas-de-otimizacao)
 10.1. Profiling de Programas Go Concorrentes
 10.2. Gerenciamento de Memória em Aplicações Concorrentes
 10.3. Otimizando a Concorrência
