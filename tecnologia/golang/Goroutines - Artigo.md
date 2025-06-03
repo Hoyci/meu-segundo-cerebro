@@ -667,8 +667,6 @@ func main() {
     time.Sleep(time.Second * 2)
 }
 ```
-
-
 ## Fechamento de `channels`
 
 Para concluir o assunto, preciso falar sobre fechamento de channels. 
@@ -705,66 +703,46 @@ package main
 
 import (
 	"fmt"
-	"math/rand"
-	"sync"
 	"time"
 )
 
-func call(i int, wg *sync.WaitGroup, calls chan int) {
-	defer wg.Done()
-	sleepTime := time.Duration(rand.Intn(3)) * time.Second
-	time.Sleep(sleepTime)
-	fmt.Printf("Telefone %d começou a tocar após %s\n", i, sleepTime)
-	calls <- i // Envia o número do telefone para o canal de chamadas
-}
-
-func answerCall(i int) {
-	fmt.Printf("Ligação do telefone %d foi atendida\n", i)
-}
-
-func doOtherTask() {
-	fmt.Println("Nenhum telefone tocando, fazendo outra tarefa...")
-	time.Sleep(1 * time.Second)
-}
-
 func main() {
-	var wg sync.WaitGroup
-	numOfCalls := 5
-	calls := make(chan int)
-	done := make(chan bool) // Canal para sinalizar que todas as goroutines de chamada terminaram
+	// Cria dois canais
+	canal1 := make(chan string)
+	canal2 := make(chan string)
 
-	wg.Add(numOfCalls)
-
-	for i := 1; i <= numOfCalls; i++ {
-		go call(i, &wg, calls)
-	}
-
-	// Goroutine para esperar que todas as chamadas terminem e fechar o canal 'calls'
+	// Inicia uma goroutine que envia uma mensagem para canal1 após 1 segundo
 	go func() {
-		wg.Wait()
-		close(calls)
-		close(done) // Sinaliza que não haverá mais chamadas
+		time.Sleep(1 * time.Second)
+		canal1 <- "Mensagem do canal 1"
 	}()
 
-	// Loop 'select' para atender as chamadas assim que chegarem
-	for {
-		select {
-		case callID := <-calls:
-			answerCall(callID)
-		default:
-			// Executado se o canal 'calls' estiver vazio
-			select {
-			case <-done:
-				// Todas as chamadas foram feitas e atendidas (ou ignoradas)
-				fmt.Println("Todas as chamadas foram processadas.")
-				return
-			default:
-				// Se não há chamadas pendentes e nem sinal de conclusão, faz outra tarefa
-				doOtherTask()
-			}
-		}
+	// Inicia uma goroutine que envia uma mensagem para canal2 após 2 segundos
+	go func() {
+		time.Sleep(2 * time.Second)
+		canal2 <- "Mensagem do canal 2"
+	}()
+
+	// Usa a instrução select para esperar por mensagens de ambos os canais
+	select {
+	case msg1 := <-canal1:
+		fmt.Println("Recebido do canal 1:", msg1)
+	case msg2 := <-canal2:
+		fmt.Println("Recebido do canal 2:", msg2)
+	case <-time.After(3 * time.Second):
+		fmt.Println("Nenhuma mensagem recebida dentro do tempo limite")
 	}
+
+	// Outro exemplo de select com um caso default
+	canal3 := make(chan int)
+
+	select {
+	case msg3 := <-canal3:
+		fmt.Println("Recebido do canal 3:", msg3)
+	default:
+		fmt.Println("Nenhuma mensagem disponível no canal 3")
 	}
+}
 ```
 
 ## Coisas para escrever
