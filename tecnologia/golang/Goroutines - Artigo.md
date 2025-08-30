@@ -846,12 +846,52 @@ func main() {
 	time.Sleep(1 * time.Second)
 	fmt.Println("Main: programa finalizado.")
 }
+
 ```
+
+## Contextos e cancelamento
+### O que são contextos?
+O pacote `context` em Go é uma das ferramentas fundamentais para lidar com concorrência de maneira robusta e efieciente. Ela é a forma padrão de gerenciar escopos, ou seja, pode ser utilizado sempre que é necessário controlar o ciclo de vida de algo, como uma requisição, valores, prazos e até mesmo cancelamento de uma tarefa.
+
+Um exemplo comum é o ciclo de vida de uma requisição web cancelada pelo usuário (por exemplo, quando ele fecha a página). Nesse caso, não faz sentido manter todas as goroutines que estão processando a requisição.
+
+Sendo assim, podemos utilizar o pacote `context` para notificar todas as goroutines que "escutam" esse contexto, informando-as que devem finalizar sua execução e assim liberar os recursos utilizados.
+
+### Como criamos contextos?
+Existem várias funções que permitem criar diferentes tipos de contextos.
+A mais básica é a `context.Background()` que retorna um contexto vazio e não nulo, que é normalmente utilizada como o contexto raiz para qualquer operação.
+A partir desse contexto base, é possível criar novos contextos com comportamentos específicos, sempre utilizando o contexto anterior como pai.
+
+Nesse sentido, podemos utilizar: 
+* `context.WithCancel` para criar um contexto derivado que retorna uma função de cancelamento que ao ser chamada é responsável por cancelar o novo contexto e qualquer outros contextos derivados dele.
+* `context.WithTimeout(parent, timeout)` para criar um contexto derivado que será automaticamente cancelado após a duração definida no timeout,  retornando também uma função de cancelamento que ao ser chamada é responsável por cancelar o novo contexto e qualquer outros contextos derivados dele.
+* `context.WithDeadline(parent, deadline)` para criar um contexto derivado que será cancelado em um momento específico, retornando também uma função de cancelamento que ao ser chamada é responsável por cancelar o novo contexto e qualquer outros contextos derivados dele.
+
+ 
+### Como propagamos contextos?
+Como boa prática em Go, é comum passar um `context.Context` como primeiro paramêtro para funções que fazem parte de uma execução de longa duração (como uma requisição). Essa abordagem indica que a função faz parte de uma operação com um ciclo de vida gerenciado por um contexto maior. Além disso, garante que o contexto esteja disponível em toda a cadeia de execução, permitindo a propagação de  sinais de cancelamento e o acesso a valores que possam ter sido armazenados no contexto.
+
+### Porque e comos cancelamos contextos?
+O cancelamento de contexto é a maneira em Go de interromper um fluxo de trabalho. Ele é especialmente útil em cenários como o de tratamento de requisições ou acesso a banco de dados, porque permite que encerrar a execução caso o usuário feche a página ou quando uma execução no banco de dados excede um determinado timeout.
+
+Para cancelar um contexto, o pacote `context` fornece uma maneira padronizada de fazer isso. Quando cancelamos um contexto, seja utilizando a função de cancelamento retornada pelas funções do pacote ou automaticamente devido a um timeout ou prazo, um sinal é enviado no channel `Done()` do contexto, indicando o cancelamento. Nesse momento, a goroutine devel liberar os recursos que estiver utilizando e encerrar a execução da função.
+
+Exemplo:
+
+```go
+func worker(ctx context.Context) {
+	for {
+		select {
+		case <-ctx.Done():
+			fmt.Println("Worker cancelled")
+			return
+		}
+	}
+}
+```
+
+
 ## Coisas para escrever
-2. [Contextos e cancelamento](#contextos-e-cancelamento)  
-7.1. `context.Context`  
-7.2. Propagando cancelamento  
-7.3. Prazos (`WithTimeout`, `WithDeadline`)  
 3. [Padrões de concorrência](#padroes-de-concorrencia)
 9.1. Worker pool  
 9.2. Fan-in / Fan-out  
