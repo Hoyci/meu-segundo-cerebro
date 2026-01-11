@@ -1,7 +1,5 @@
 # Entendendo GRPC
 
-o **gRPC** é um framework open source baseado na tecnologia **RPC (Remote Procedure Call)**, criado pelo Google em 2015. Ele foi projetado para conectar serviços de maneira altamente eficiente, o que o tornou uma escolha natural para arquiteturas de microserviços.
-=======
 o **gRPC** é um framework open source baseado na tecnologia **RPC (Remote Procedure Call)** criado pelo Google em 2015. Ele foi projetado para conectar serviços de maneira altamente eficiente, o que o tornou uma escolha natural para arquiteturas de microsserviços.
 Diferentemente do modelo **REST** que utiliza o formato JSON sobre o protocolo **HTTP/1.1**, o gRPC é notoriamente mais performático pois adota o **HTTP/2** como transporte e os **Protocol Buffers (Protobuff)** como sua linguagem de definição de interface (IDL) e formato de serialização binária.
 
