@@ -36,7 +36,7 @@ Uma breve explicação sobre como funciona o runtime:  o runtime da linguagem po
 
 Um coisa interessante a ser observar é que todas as instâncias de paralelismo são também formas de concorrência, pois se várias coisas estão acontecendo ao mesmo tempo, elas também estão sendo gerenciadas simultaneamente. No entanto, o inverso não é necessariamente verdadeiro; um programa concorrente pode não alcançar o paralelismo se estiver sendo executado em um processador com um único núcleo. Nesse caso, as tarefas seriam apenas intercaladas, simulando a simultaneidade, mas sem a execução paralela real.
 
-**Tá, mas o runtime sabe que uma goroutine está pronta para ser executada?**
+**Tá, mas como o runtime sabe que uma goroutine está pronta para ser executada?**
 
 O runtime do Go gerencia o ciclo de vida das goroutines através de um scheduler que monitora seu estado em tempo real. As goroutines podem estar em três estados que são: 
 
@@ -890,10 +890,145 @@ func worker(ctx context.Context) {
 }
 ```
 
+## Padrões de concorrência
+
+### Worker pool
+#### O que é?
+Worker pool é um dos padrões fundamentais utilizados para trabalhar com concorrência. Ele é eficaz porque permite gerenciar e processar um grande número de tarefaz independentes, utilizando um número fixo de goroutines que extraem tarefas de uma fila compartilhada. Esse padrão é eficaz porque permite manter o controle sobre a utilização de recursos do sistema, o que evita sobrecarga e melhora o desempenho.
+Uma analogia utilizada para explicar esse padrão é o de um aluno com uma lista de 100 exercícios de matemática (a fila de tarefas) para fazer. Se ele tivesse que fazer todos sozinhom demoraria muito tempo. Mas, se chamar alguns colegas (as goroutines do worker pool) e distribuir as tarefas conforme forem terminando, isso fará com que a lista seja entregue muito mais rápido.
+Um exemplo prático do padrão Worker Pool é em aplicações de processamento de imagens. Suponha que você precise processar um grande número de imagens, cada uma exigindo algum trabalho computacional. Em vez de processar essas imagens sequencialmente ou criar uma nova goroutine para cada imagem, você pode configurar um worker pool com um número fixo de goroutines trabalhadoras. Cada goroutine trabalhadora pode então pegar um trabalho de processamento de imagem de uma fila, realizar as operações necessárias, como redimensionamento, e enviar a imagem processada para uma fila de resultados. Essa abordagem limita o número de tarefas de processamento de imagem concorrentes, evitando que o sistema fique sobrecarregado e utiliza eficientemente os recursos de processamento disponíveis.
+
+#### Como implementar?
+Para implementar esse padrão, primeiro precisamos de uma função que representa a lógica de processar. Múltiplas instâncias dessa função serão iniciadas como goroutines e todas receberão um mesmo canal que é responsável por enviar as "tarefas" e receber as saídas processadas.
+
+```go
+func worker(id int, jobs <-chan int, results chan<- int) {
+	for j := range jobs {
+		fmt.Printf("worker %d started job %d\n", id, j)
+		time.Sleep(time.Second)
+		results <- j * 2
+		fmt.Printf("worker %d finished job %d\n", id, j)
+	}
+}
+
+func main() {
+	numJobs := 10
+	numWorkers := 3
+
+	jobs := make(chan int, numJobs)
+	results := make(chan int, numJobs)
+
+	for w := 1; w <= numWorkers; w++ {
+		go worker(w, jobs, results)
+	}
+
+	for j := 1; j <= numJobs; j++ {
+		jobs <- j
+	}
+	close(jobs)
+
+	for a := 1; a <= numJobs; a++ {
+		result := <-results
+		fmt.Printf("Resultado do job: %d\n", result)
+	}
+}
+```
+
+
+#### Boas práticas e armadilhas
+- **Fechar o channel de jobs**: é importante sempre fechar o channel assim que todos os trabalhos forem finalizados de modo que seja possível sinalizar os workers que não haverá mais tarefas.
+- **Utilizar buffered channels**: Pode ajudar a evitar bloqueios e melhorar o desempenho, permitindo que os producers e consumers operem de maneira mais independente.
+- **Monitoramento e loggings**: Em ambiente de producução, é extremamente importante ter observabilidade quando trabalhamos com worker pools para garantir que seja possível rastrear a saúde e o desempenho.
+- **Gracefull shutdown**: É crucial implementarmos mecanismos de encerramento gracioso da aplicação para garantir que todas as tarefas em andamento sejam concluídas antes que a aplicação termine.
+- **Tamanho do pool**: Um número muito pequeno de workers pode não utilizar totalmente os recursos do sistema, enquanto um número muito grande pode levar a uma sobrecarga devido ao gerenciamento de muitas goroutines. O tamanho ideal depende das características das tarefas e dos recursos disponíveis.
+- **Tratamento de erros**: É importante ter mecanismos para lidar com erros que possam ocorrer dentro das goroutines trabalhadoras, como tentar reiniciar a goroutine com falha, registrar o erro ou reenviar a tarefa para ser processada novamente.
+
+### Fan-In / Fan-out
+#### O que é Fan-Out?
+O Fan-Out é um padrão que tem como objetivo distribuir o processamento de um mesmo fluxo de entrada entre várias goroutines. Em vez de apenas uma rotina lidar com todos os dados, múltiplas goroutines consomem do mesmo canal e processam as mensagens de forma concorrente, o que aumenta a capacidade de processamento do sistema.
+Como esse padrão apenas transmite os dados, o produtor não precisa saber quem está consumindo. Isso torna o sistema flexível e de fácil evolução, já que é possível adicionar novos consumidores sem necessidade de alterar o código do produtor.
+No mundo real, esse padrão pode ser utilizado situações em que é necessário realizar N tarefas distintas. Por exemplo, quando um usuário faz um pedido num e-commerce, é necessário disparar várias ações como:
+- **Enviar e-mail de confirmação para o cliente**
+- **Atualizar o estoque no sistema de inventário**
+- **Registrar o pedido num sistema de analytics**
+- **Disparar uma notificação para o time de logísitca**
+
+#### Como implementar Fan-Out?
+```go
+package main
+
+import (
+	"fmt"
+	"sync"
+)
+
+type Pedido struct {
+	ID      int
+	Cliente string
+	Valor   float64
+}
+
+func main() {
+	pedidos := make(chan Pedido)
+
+	var wg sync.WaitGroup
+
+	wg.Add(4)
+
+	go enviarEmail(pedidos, &wg)
+	go atualizarEstoque(pedidos, &wg)
+	go registrarAnalytics(pedidos, &wg)
+	go notificarLogistica(pedidos, &wg)
+
+	for i := 1; i <= 3; i++ {
+		p := Pedido{
+			ID:      i,
+			Cliente: fmt.Sprintf("Cliente %d", i),
+			Valor:   float64(i) * 100,
+		}
+		fmt.Printf("Pedido %d finalizado\n", p.ID)
+		pedidos <- p
+	}
+
+	close(pedidos)
+
+	wg.Wait()
+}
+
+func enviarEmail(pedidos <-chan Pedido, wg *sync.WaitGroup) {
+	defer wg.Done()
+	for p := range pedidos {
+		fmt.Printf("[Email] Enviando confirmação para %s (Pedido %d)\n", p.Cliente, p.ID)
+	}
+}
+
+func atualizarEstoque(pedidos <-chan Pedido, wg *sync.WaitGroup) {
+	defer wg.Done()
+	for p := range pedidos {
+		fmt.Printf("[Estoque] Atualizando estoque do Pedido %d\n", p.ID)
+	}
+}
+
+func registrarAnalytics(pedidos <-chan Pedido, wg *sync.WaitGroup) {
+	defer wg.Done()
+	for p := range pedidos {
+		fmt.Printf("[Analytics] Registrando Pedido %d no sistema de análise\n", p.ID)
+	}
+}
+
+func notificarLogistica(pedidos <-chan Pedido, wg *sync.WaitGroup) {
+	defer wg.Done()
+	for p := range pedidos {
+		fmt.Printf("[Logística] Notificando equipe sobre Pedido %d\n", p.ID)
+	}
+}
+```
+```
+```
+```
+```
 
 ## Coisas para escrever
-3. [Padrões de concorrência](#padroes-de-concorrencia)
-9.1. Worker pool  
 9.2. Fan-in / Fan-out  
 9.3. Pipeline 
 9.4. Generator
