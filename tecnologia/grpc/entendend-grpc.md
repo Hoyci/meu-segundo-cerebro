@@ -74,4 +74,5 @@ message DeleteUserResponse {
 
 Referências: 
 [Introdução ao gRPC - Golang](https://dev.to/thenicolau/introducao-ao-grpc-golang-210f)
+
 [gRPC: onde vive? o que come?](https://dev.to/mfbmina/grpc-onde-vive-o-que-come-5049)
